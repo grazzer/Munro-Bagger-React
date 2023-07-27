@@ -1,9 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState, useCallback, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList, RefreshControl, ActivityIndicator, TextInput } from 'react-native';
-import MunroCard from './src/components/MunroCard';
 import { useFonts } from 'expo-font';
-import filter from 'lodash.filter';
+import ListScreen from './src/screens/ListScreen';
+import DetailScreen from "./src/screens/DetailScreen";
 
 
 // API path
@@ -21,7 +20,6 @@ export default function App() {
   const [reloadMunroData, setReloadMunroData] = useState(false);
   const toggleSwitch = () => setReloadMunroData(previousState => !previousState);
 
-
   // get API data
   useEffect(() => {
     const fetchMunros = async () => {
@@ -36,34 +34,10 @@ export default function App() {
       fetchMunros();
     }
     catch (error) {
+      setloading(false)
       setError(error)
     }
-    finally {
-      setloading(false)
-    }
   }, [reloadMunroData])
-
-  //Munro list search bar constants
-  const [query, setQuery] = useState('');
-  const [ListData, setListData] = useState([]);
-
-  const handleSearch = text => {
-    const formattedQuery = text.toLowerCase();
-    const filteredData = filter(munroData, munro => {
-      return contains(munro.Name, munro.Number, formattedQuery);
-    });
-    setListData(filteredData);
-    setQuery(text);
-  };
-
-  const contains = (Name, query) => {
-
-    if (Name.includes(query)) {
-      return true;
-    }
-
-    return false;
-  };
 
 
   // load font 
@@ -71,24 +45,8 @@ export default function App() {
     IcoMoon: require('./assets/icomoon/icomoon.ttf'),
   });
 
-  // //TODO - loading componenet occours when flat list is refreshing too
-  // // refresh constants 
-  // const [RefreshingList, setRefreshingList] = React.useState(false);
-
-  // // refresh FlatList
-  // const onRefresh = React.useCallback(() => {
-  //   setRefreshingList(true);
-  //   console.log("refresh")
-  //   toggleSwitch()
-  //   setTimeout(() => {
-  //     console.log("refreshed")
-  //     setRefreshingList(false);
-  //   }, 2000);
-  // }, []);
-
 
   if (Loading) {
-    console.log(RefreshingList)
     console.log("Loading")
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -107,59 +65,18 @@ export default function App() {
     );
   }
 
-  // font loaded check 
   if (!fontsLoaded) {
     return (<Text>No Font</Text>);
   }
 
   return (
-    <View style={styles.container}>
-      {/* <StatusBar style="auto" /> */}
-      <FlatList
-        keyExtractor={(item) => item.Number}
-        data={munroData}
-        renderItem={({ item }) => (<MunroCard munro={item} climbed={false} />)}
-        ListHeaderComponent={renderHeader}
-      // refreshControl={
-      //   <RefreshControl refreshing={RefreshingList} onRefresh={onRefresh} />
-      // } 
-      />
-    </View>
+    <DetailScreen munro={munroData[10]} />
+    // <ListScreen list={munroData} />
   );
 
-  function renderHeader() {
-    return (
-      <View
-        style={{
-          backgroundColor: '#fff',
-          padding: 10,
-          marginVertical: 10,
-          borderRadius: 20
-        }}
-      >
-        <TextInput
-          autoCapitalize="none"
-          autoCorrect={false}
-          clearButtonMode="always"
-          value={query}
-          onChangeText={queryText => handleSearch(queryText)}
-          placeholder="Search"
-          style={{ backgroundColor: '#fff', paddingHorizontal: 20 }}
-        />
-      </View>
-    );
-  }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#F5F5F5',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-  },
-  test: {
-    flex: 1,
-    // borderRadius: 20,
   },
 });

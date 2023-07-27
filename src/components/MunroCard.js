@@ -25,7 +25,7 @@ const MunroCard = (props) => {
                 <View style={styles.munroCardDetails}>
                     <Text style={styles.munroNameText}>{munro.Name}</Text>
                     <Spacer size={5} />
-                    <Details IconName="distance" data={munro.County} />
+                    <Details IconName="location" data={munro.County} />
                     <Details IconName="mountain" data={munro.Metres} />
                     <Details IconName="hashtag" data={munro.Number} />
                 </View>
@@ -38,11 +38,11 @@ const MunroCard = (props) => {
 }
 
 // TO_LEARN whats the difference function or const?
-function Details(props) {
+function Details({ IconName, data }) {
     return (
         <View style={styles.InfoRow}>
-            <Icon name={props.IconName} size={18} color='#3ECEB1' style={styles.InfoSymble} />
-            <Text style={styles.InfoText}> {props.data}</Text>
+            <Icon name={IconName} size={18} color='#3ECEB1' style={styles.InfoSymble} />
+            <Text style={styles.InfoText}> {data}</Text>
         </View>
     )
 }
