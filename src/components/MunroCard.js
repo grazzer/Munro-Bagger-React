@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import Spacer from './Spacer';
 import { createIconSetFromIcoMoon } from '@expo/vector-icons';
 
@@ -12,28 +12,32 @@ const Icon = createIconSetFromIcoMoon(
 
 const MunroCard = (props) => {
 
-    const { munro, climbed } = props
+    const { munro, climbed, navigation } = props
     if (climbed == true) {
         backpackColour = 'gold'
     }
     else { backpackColour = '#D9D8D8' }
 
+    // onPress={() => navigation.navigate('DetailScreen')}>
+
     return (
-        <View style={styles.munroContainer}>
-            <View style={[styles.munroCard, styles.Shadow]}>
-                <View style={styles.munroCardImage}></View>
-                <View style={styles.munroCardDetails}>
-                    <Text style={styles.munroNameText}>{munro.Name}</Text>
-                    <Spacer size={5} />
-                    <Details IconName="location" data={munro.County} />
-                    <Details IconName="mountain" data={munro.Metres} />
-                    <Details IconName="hashtag" data={munro.Number} />
-                </View>
-                <View style={styles.munroCardBag}>
-                    <Icon name='backpack' size={22} color={backpackColour} />
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('DetailScreen', { munro })}>
+            <View style={styles.munroContainer}>
+                <View style={[styles.munroCard, styles.Shadow]}>
+                    <View style={styles.munroCardImage}></View>
+                    <View style={styles.munroCardDetails}>
+                        <Text style={styles.munroNameText}>{munro.Name}</Text>
+                        <Spacer size={5} />
+                        <Details IconName="location" data={munro.County} />
+                        <Details IconName="mountain" data={munro.Metres} />
+                        <Details IconName="hashtag" data={munro.Number} />
+                    </View>
+                    <View style={styles.munroCardBag}>
+                        <Icon name='backpack' size={22} color={backpackColour} />
+                    </View>
                 </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     )
 }
 

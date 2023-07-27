@@ -3,14 +3,17 @@ import { StyleSheet, Text, View, FlatList, RefreshControl, ActivityIndicator, Te
 import MunroCard from "../components/MunroCard";
 import filter from 'lodash.filter';
 
-export default function ListScreen({ list }) {
+export default function ListScreen({ navigation, route }) {
+    const list = route.params.munroData
 
-    // List search bar 
     const [query, setQuery] = useState('');
     const [ListData, setListData] = useState([]);
 
+    // TO_LEARN the .Name is not always readable, what is happening here
     useEffect(() => {
-        setListData(list)
+        // console.log(list[0].Name);
+        setListData(list);
+        // console.log(list[0].Name);
     }, [])
 
     const handleSearch = text => {
@@ -28,14 +31,14 @@ export default function ListScreen({ list }) {
         return false;
     };
 
-
     return (
         <View style={styles.container}>
             <FlatList
                 style={styles.flatList}
                 keyExtractor={(item) => item.Number}
                 data={ListData}
-                renderItem={({ item }) => (<MunroCard munro={item} climbed={false} />)}
+                renderItem={({ item }) => (<MunroCard munro={item} climbed={false} navigation={navigation} />)}
+
                 ListHeaderComponent={
                     <View style={styles.searchBox}>
                         <TextInput

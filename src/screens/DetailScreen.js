@@ -19,7 +19,8 @@ function Details({ IconName, data, size = 20 }) {
     )
 }
 
-export default function DetailScreen({ munro }) {
+export default function DetailScreen({ route }) {
+    const munro = route.params.munro
 
     const HightDetails = ({ hight, seaLevel }) => {
         return (

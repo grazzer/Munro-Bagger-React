@@ -1,9 +1,13 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList, RefreshControl, ActivityIndicator, TextInput } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
 import ListScreen from './src/screens/ListScreen';
 import DetailScreen from "./src/screens/DetailScreen";
 
+
+const Stack = createNativeStackNavigator();
 
 // API path
 const hillBaggerPath = "https://hill-bagging-api.onrender.com";
@@ -69,10 +73,19 @@ export default function App() {
     return (<Text>No Font</Text>);
   }
 
+  const munro = munroData[0]
+  // if (munroData) {
   return (
-    <DetailScreen munro={munroData[10]} />
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="ListScreen">
+        <Stack.Screen name="ListScreen" component={ListScreen} initialParams={{ munroData }} />
+        <Stack.Screen name="DetailScreen" component={DetailScreen} initialParams={{ munro }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    // <DetailScreen munro={munroData[10]} />
     // <ListScreen list={munroData} />
   );
+  // }
 
 }
 
