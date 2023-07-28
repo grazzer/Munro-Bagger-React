@@ -6,6 +6,7 @@ import DetailsHeight from "../components/DetailsHeight";
 import DetailsMap from "../components/DetailsMap";
 import DetailsClimbed from "../components/DetailsClimbed";
 import DetailsRow from "../components/DetailsRow";
+import DetailsAbout from "../components/DetailsAbout";
 
 export default function DetailScreen({ route }) {
     const munro = route.params.munro
@@ -21,9 +22,11 @@ export default function DetailScreen({ route }) {
                         <Spacer size={20} />
                         <DetailsHeight hight={munro.Drop} seaLevel={munro.Metres} />
                         <Spacer size={20} />
-                        <DetailsClimbed climbed={true} />
+                        <DetailsClimbed climbed={false} />
                         <Spacer size={20} />
                         <DetailsMap lat={munro.Latitude} lon={munro.Longitude} name={munro.Name} />
+                        <Spacer size={20} />
+                        <DetailsAbout munro={munro} />
                     </View>
                 </ScrollView>
             </View>
