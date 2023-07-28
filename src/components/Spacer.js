@@ -1,3 +1,5 @@
+//https://eduardogomez.io/blog/use-a-spacer-component-instead-of-margin-with-react-native/
+
 import React from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
