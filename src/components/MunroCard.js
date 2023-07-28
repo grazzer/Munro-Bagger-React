@@ -26,10 +26,10 @@ const MunroCard = (props) => {
                 <View style={[styles.munroCard, styles.Shadow]}>
                     <View style={styles.munroCardImage}></View>
                     <View style={styles.munroCardDetails}>
-                        <Text style={styles.munroNameText}>{munro.Name}</Text>
+                        <Text style={styles.munroNameText} numberOfLines={1}>{munro.Name}</Text>
                         <Spacer size={5} />
                         <Details IconName="location" data={munro.County} />
-                        <Details IconName="mountain" data={munro.Metres} />
+                        <Details IconName="mountain" data={munro.Metres + ' m'} />
                         <Details IconName="hashtag" data={munro.Number} />
                     </View>
                     <View style={styles.munroCardBag}>
@@ -46,7 +46,7 @@ function Details({ IconName, data }) {
     return (
         <View style={styles.InfoRow}>
             <Icon name={IconName} size={18} color='#3ECEB1' style={styles.InfoSymble} />
-            <Text style={styles.InfoText}> {data}</Text>
+            <Text style={styles.InfoText} numberOfLines={1}> {data}</Text>
         </View>
     )
 }
