@@ -60,6 +60,7 @@ export default function App() {
   }
 
   if (error) {
+    console.log("error")
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ fontSize: 18 }}>
@@ -70,6 +71,7 @@ export default function App() {
   }
 
   if (!fontsLoaded) {
+    console.log("no Font")
     return (<Text>No Font</Text>);
   }
 

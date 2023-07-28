@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import { createIconSetFromIcoMoon } from '@expo/vector-icons';
 import Spacer from "../components/Spacer";
 
@@ -22,43 +22,77 @@ function Details({ IconName, data, size = 20 }) {
 export default function DetailScreen({ route }) {
     const munro = route.params.munro
 
-    const HightDetails = ({ hight, seaLevel }) => {
-        return (
-            <View style={[styles.detailBox, styles.Shadow]}>
-                <View style={styles.coulm}>
-                    <Details IconName={'mountain'} data={hight + ' m'} size={20} />
-                </View>
-                <View style={styles.coulm}>
-                    <Details IconName={'sea-level'} data={seaLevel + ' m'} size={20} />
-                </View>
-            </View>
-        )
-    }
-    const climbedDetails = ({ hight, seaLevel }) => {
-        return (
-            <View style={[styles.detailBox, styles.Shadow]}>
-                <View style={styles.coulm}>
-                    <Details IconName={'mountain'} data={hight + ' m'} size={20} />
-                </View>
-                <View style={styles.coulm}>
-                    <Details IconName={'sea-level'} data={seaLevel + ' m'} size={20} />
-                </View>
-            </View>
-        )
-    }
-
     return (
         <View style={styles.container}>
             <View style={styles.image}></View>
             <View style={styles.details}>
                 <Text style={styles.name}>{munro.Name}</Text>
                 <Details IconName={'location'} data={munro.County} size={15} />
-                <Spacer size={10} />
+                <Spacer size={20} />
                 <HightDetails hight={munro.Drop} seaLevel={munro.Metres} />
+                <Spacer size={20} />
+                <ClimbedDetails climbed={false} />
             </View>
 
         </View>
     )
+}
+
+const HightDetails = ({ hight, seaLevel }) => {
+    return (
+        <View style={[styles.detailBox, styles.Shadow]}>
+            <View style={styles.coulm}>
+                <Details IconName={'mountain'} data={hight + ' m'} size={20} />
+            </View>
+            <View style={styles.coulm}>
+                <Details IconName={'sea-level'} data={seaLevel + ' m'} size={20} />
+            </View>
+        </View>
+
+    )
+}
+
+
+const ClimbedDetails = ({ climbed }) => {
+    if (climbed == true) {
+        return (
+            <View>
+                <Text style={styles.detailBoxTitalText}>Climbed</Text>
+                <Spacer size={5} />
+                <View style={[styles.detailBox, styles.Shadow]}>
+                    <View style={styles.coulm}>
+                        <Details IconName={'calendar'} data='data' size={20} />
+                        <Spacer size={2} />
+                        <Details IconName={'time'} data='data' size={20} />
+                        <Spacer size={2} />
+                        <Details IconName={'freinds'} data='data' size={20} />
+                    </View>
+                    <View style={styles.coulm}>
+                        <Details IconName={'distance'} data='data' size={20} />
+                        <Spacer size={2} />
+                        <Details IconName={'weather'} data='data' size={20} />
+                    </View>
+                </View>
+            </View>
+        )
+    }
+    return (
+        <View>
+            <Text style={styles.detailBoxTitalText}>Climbed</Text>
+            <Spacer size={5} />
+            <View style={[styles.detailBox, styles.Shadow]}>
+                <Button
+                    color='#3ECEB1'
+                    title="+ Add Climb"
+                    onPress={() => console.log('pressed')}
+                />
+            </View>
+        </View>
+    )
+}
+
+const Map = () => {
+
 }
 
 
@@ -88,6 +122,9 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 8,
     },
+    detailBoxTitalText: {
+        fontSize: 20
+    },
     Shadow: {
         shadowColor: '#000',
         shadowOffset: { width: 1, height: 2 },
@@ -97,6 +134,9 @@ const styles = StyleSheet.create({
     },
     coulm: {
         flex: 1
+    },
+    climbButton: {
+
     },
 
 
