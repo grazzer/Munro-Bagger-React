@@ -1,5 +1,7 @@
 import React from "react";
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, ScrollView } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+
 import { createIconSetFromIcoMoon } from '@expo/vector-icons';
 import Spacer from "../components/Spacer";
 
@@ -24,17 +26,23 @@ export default function DetailScreen({ route }) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.image}></View>
-            <View style={styles.details}>
-                <Text style={styles.name}>{munro.Name}</Text>
-                <Details IconName={'location'} data={munro.County} size={15} />
-                <Spacer size={20} />
-                <HightDetails hight={munro.Drop} seaLevel={munro.Metres} />
-                <Spacer size={20} />
-                <ClimbedDetails climbed={false} />
+            <View style={styles.imageContainer}></View>
+            <View style={styles.detailsContainer}>
+                <ScrollView style={styles.scrollView}>
+                    <View style={styles.details}>
+                        <Text style={styles.name}>{munro.Name}</Text>
+                        <Details IconName={'location'} data={munro.County} size={15} />
+                        <Spacer size={20} />
+                        <HightDetails hight={munro.Drop} seaLevel={munro.Metres} />
+                        <Spacer size={20} />
+                        <ClimbedDetails climbed={false} />
+                        <Spacer size={20} />
+                        <Map lat={munro.Latitude} lon={munro.Longitude} name={munro.Name} />
+                    </View>
+                </ScrollView>
             </View>
 
-        </View>
+        </View >
     )
 }
 
@@ -91,8 +99,34 @@ const ClimbedDetails = ({ climbed }) => {
     )
 }
 
-const Map = () => {
 
+const Map = ({ lat, lon, name }) => {
+    return (
+        <View>
+            <Text style={styles.detailBoxTitalText}>Map</Text>
+            <Spacer size={5} />
+            <View style={[styles.mapBox, styles.Shadow]}>
+                <MapView
+                    style={styles.map}
+                    region={initialRegion = {
+                        latitude: lat,
+                        longitude: lon,
+                        latitudeDelta: 0.1,
+                        longitudeDelta: 0.1,
+                    }} >
+
+                    <Marker
+                        coordinate={{
+                            latitude: lat,
+                            longitude: lon
+                        }}
+                        title={name}
+                    />
+
+                </MapView>
+            </View>
+        </View>
+    )
 }
 
 
@@ -101,17 +135,26 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    image: {
+    imageContainer: {
         flex: 1,
         backgroundColor: '#3ECEB1'
     },
-    details: {
+    detailsContainer: {
         flex: 3,
         marginTop: -20,
+    },
+    details: {
+        // flex: 3,
+        // marginTop: -20,
         borderRadius: 20,
         padding: 20,
         backgroundColor: '#F5F5F5',
     },
+    image: {
+        flex: 1,
+        backgroundColor: '#3ECEB1'
+    },
+
     name: {
         fontSize: 30
     },
@@ -137,6 +180,20 @@ const styles = StyleSheet.create({
     },
     climbButton: {
 
+    },
+    mapBox: {
+        backgroundColor: '#FFF',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 0,
+        borderRadius: 8,
+        overflow: 'hidden',
+    },
+    map: {
+        flex: 1,
+        aspectRatio: 2 / 1.4,
+        width: '100%',
+        height: '100%',
     },
 
 
