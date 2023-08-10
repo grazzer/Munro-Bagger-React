@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import DetailsBox from "./DetailsBox";
 
 const DetailsMap = ({ lat, lon, name }) => {
@@ -9,6 +9,7 @@ const DetailsMap = ({ lat, lon, name }) => {
         <DetailsBox title='Map' cardStyle={styles.card} >
             <MapView
                 style={styles.map}
+                provider={PROVIDER_GOOGLE}
                 region={initialRegion = {
                     latitude: lat,
                     longitude: lon,

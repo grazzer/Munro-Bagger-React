@@ -21,10 +21,21 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "graham.expo.munrobagger",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDc9N4HydD69tMJ-iSe1m2vlKSlAJC3QZY"
+        }
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "80e2725c-bb75-4916-b656-77af5dfdd59c"
+      }
     }
   }
 }
