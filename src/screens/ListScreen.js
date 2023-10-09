@@ -33,6 +33,7 @@ export default function ListScreen({ navigation, route }) {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.tital}>Munros</Text>
             <FlatList
                 style={styles.flatList}
                 keyExtractor={(item) => item.Number}
@@ -65,6 +66,11 @@ const styles = StyleSheet.create({
         padding: 5,
         backgroundColor: '#F5F5F5',
 
+    },
+    tital: {
+        fontSize: 25,
+        padding: 5,
+        alignSelf: "center",
     },
     flatList: {
         flex: 1,

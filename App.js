@@ -5,6 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
 import ListScreen from './src/screens/ListScreen';
 import DetailScreen from "./src/screens/DetailScreen";
+import AddClimbScreen from "./src/screens/AddClimbScreen";
+import Test from "./src/screens/Test";
 
 
 const Stack = createNativeStackNavigator();
@@ -82,10 +84,10 @@ export default function App() {
       <Stack.Navigator initialRouteName="ListScreen">
         <Stack.Screen name="ListScreen" component={ListScreen} initialParams={{ munroData }} />
         <Stack.Screen name="DetailScreen" component={DetailScreen} initialParams={{ munro }} />
+        <Stack.Screen name="AddClimbScreen" component={AddClimbScreen} initialParams={{ munro }} />
+        <Stack.Screen name="Test" component={Test} />
       </Stack.Navigator>
     </NavigationContainer>
-    // <DetailScreen munro={munroData[10]} />
-    // <ListScreen list={munroData} />
   );
   // }
 

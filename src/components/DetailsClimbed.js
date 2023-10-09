@@ -4,7 +4,8 @@ import Spacer from "../components/Spacer";
 import DetailsBox from "../components/DetailsBox";
 import DetailsRow from "./DetailsRow";
 
-const DetailsClimbed = ({ climbed }) => {
+const DetailsClimbed = ({ navigation, climbed, munro }) => {
+
     if (climbed == true) {
 
         return (
@@ -29,7 +30,7 @@ const DetailsClimbed = ({ climbed }) => {
             <Button
                 color='#3ECEB1'
                 title="+ Add Climb"
-                onPress={() => console.log('pressed')}
+                onPress={() => navigation.navigate('AddClimbScreen', { munro })}
             />
         </DetailsBox>
     )
