@@ -1,20 +1,20 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import * as SQLite from "expo-sqlite";
 import { Text, TouchableOpacity, StyleSheet, View, TextInput, Button, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import { Picker } from "@react-native-picker/picker";
 import Spacer from "../components/Spacer";
+import Database from "../../Database";
 import { SelectList } from 'react-native-dropdown-select-list'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { DateTimePickerModal } from 'react-native-modal-datetime-picker';
 import { TimerPickerModal } from "react-native-timer-picker";
 
 
 
 export default function AddClimbScreen({ navigation, route }) {
 
+    Database.removeAllClimbs()
     const munro = route.params.munro
-    const db = SQLite.openDatabase('db.testDb');
 
     const [munroNumber, setMunroNumber] = useState("")
     const [munroName, setMunroName] = useState("")
@@ -65,20 +65,11 @@ export default function AddClimbScreen({ navigation, route }) {
         }, []);
     }
 
-    useEffect(() => {
-        db.transaction((tx) => {
-            tx.executeSql(
-                "create table if not exists myClimbs (id integer primary key not null, munro int, date int, weather text, distance int, time real, friends text);"
-            );
-        });
-    }, []);
-
     const data = [
         { key: '1', value: 'Km' },
         { key: '2', value: 'Miles' },
 
     ]
-
 
     return (
         <View style={styles.container}>
@@ -281,7 +272,7 @@ export default function AddClimbScreen({ navigation, route }) {
                     <Button
                         color='#3ECEB1'
                         title="Add Climb"
-                        onPress={() => addNewClimb(db, munroNumber, date, weather, distance, time, friend, unitKm)}
+                        onPress={() => Database.addNewClimb(munroNumber, date, weather, distance, time, friend, unitKm)}
                         style={styles.button}
                     />
                 </View >
@@ -370,43 +361,6 @@ const styles = StyleSheet.create({
 });
 
 
-
-addNewClimb = (db, munroNumber, date, weather, distance, time, friend, unitKm) => {
-    const _munroNumber = parseInt(munroNumber)
-    const _date = parseInt(date)
-    const _time = parseFloat(time)
-    let _distance = parseInt(distance)
-    if (unitKm == 'Miles') {
-        _distance = _distance * 1.609344
-    }
-
-    db.transaction(
-        (tx) => {
-            tx.executeSql("insert into myClimbs (munro, date, weather, distance, time, friends) values (?, ?, ?, ?, ?, ?)", [_munroNumber, _date, weather, _distance, _time, friend]);
-        },
-        null,
-    );
-}
-
-removeAllClimbs = (db) => {
-    db.transaction(
-        (tx) => {
-            tx.executeSql("DELETE FROM myClimbs")
-        },
-        null,
-    );
-}
-
-LogAllClimbs = (db) => {
-    db.transaction(
-        (tx) => {
-            tx.executeSql("select * from myClimbs", [], (_, { rows }) =>
-                console.log(JSON.stringify(rows))
-            );
-        },
-        null,
-    );
-}
 
 
 // addNewClimb = (munroNumber, date, weather, distance, time, friend) => {

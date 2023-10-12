@@ -6,6 +6,7 @@ import { useFonts } from 'expo-font';
 import ListScreen from './src/screens/ListScreen';
 import DetailScreen from "./src/screens/DetailScreen";
 import AddClimbScreen from "./src/screens/AddClimbScreen";
+import MyClimbsScreen from "./src/screens/MyClimbsScreen";
 import Test from "./src/screens/Test";
 
 
@@ -85,6 +86,7 @@ export default function App() {
         <Stack.Screen name="ListScreen" component={ListScreen} initialParams={{ munroData }} />
         <Stack.Screen name="DetailScreen" component={DetailScreen} initialParams={{ munro }} />
         <Stack.Screen name="AddClimbScreen" component={AddClimbScreen} initialParams={{ munro }} />
+        <Stack.Screen name="MyClimbsScreen" component={MyClimbsScreen} />
         <Stack.Screen name="Test" component={Test} />
       </Stack.Navigator>
     </NavigationContainer>
