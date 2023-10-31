@@ -8,7 +8,7 @@ class Database {
 
     db = SQLite.openDatabase('db.testDb');
 
-    constructor() {  // Constructor
+    createDatabase = () => {
         this.db.transaction((tx) => {
             tx.executeSql(
                 "create table if not exists myClimbs (id integer primary key not null, munro int, date int, weather text, distance int, time real, friends text);"
@@ -33,21 +33,36 @@ class Database {
         );
     }
 
-    removeAllClimbs = () => {
-        this.db.transaction(
-            (tx) => {
-                tx.executeSql("DELETE FROM myClimbs")
+    getAllClimbs = () => {
+        return new Promise((resolve, reject) => {
+            this.db.transaction((tx) => {
+                tx.executeSql(
+                    "select * from myClimbs",
+                    [],
+                    (_, result) => resolve(result.rows._array),
+                    (_, error) => reject(error)
+                );
             },
-            null,
-        );
+                null,
+            );
+        })
     }
 
     LogAllClimbs = () => {
         this.db.transaction(
             (tx) => {
                 tx.executeSql("select * from myClimbs", [], (_, { rows }) =>
-                    console.log(JSON.stringify(rows))
+                    console.log(JSON.stringify(rows._array))
                 );
+            },
+            null,
+        );
+    }
+
+    removeAllClimbs = () => {
+        this.db.transaction(
+            (tx) => {
+                tx.executeSql("DELETE FROM myClimbs")
             },
             null,
         );

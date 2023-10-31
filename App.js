@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, FlatList, RefreshControl, ActivityIndicator, Te
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
+import Database from './Database'
 import ListScreen from './src/screens/ListScreen';
 import DetailScreen from "./src/screens/DetailScreen";
 import AddClimbScreen from "./src/screens/AddClimbScreen";
@@ -18,6 +19,9 @@ const munroQuery = "/munros";
 const munroBaggerPath = `${hillBaggerPath}${munroQuery}`;
 
 export default function App() {
+
+  // is this correct?
+  Database.createDatabase()
 
   // API constants 
   const [munroData, setMunroData] = useState([]);
@@ -82,7 +86,7 @@ export default function App() {
   // if (munroData) {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="ListScreen">
+      <Stack.Navigator initialRouteName="MyClimbsScreen">
         <Stack.Screen name="ListScreen" component={ListScreen} initialParams={{ munroData }} />
         <Stack.Screen name="DetailScreen" component={DetailScreen} initialParams={{ munro }} />
         <Stack.Screen name="AddClimbScreen" component={AddClimbScreen} initialParams={{ munro }} />

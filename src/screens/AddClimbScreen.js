@@ -13,7 +13,8 @@ import { TimerPickerModal } from "react-native-timer-picker";
 
 export default function AddClimbScreen({ navigation, route }) {
 
-    Database.removeAllClimbs()
+
+    Database.LogAllClimbs()
     const munro = route.params.munro
 
     const [munroNumber, setMunroNumber] = useState("")
