@@ -9,6 +9,9 @@ import DetailScreen from "./src/screens/DetailScreen";
 import AddClimbScreen from "./src/screens/AddClimbScreen";
 import MyClimbsScreen from "./src/screens/MyClimbsScreen";
 import Test from "./src/screens/Test";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
+
 
 
 const Stack = createNativeStackNavigator();
@@ -20,7 +23,7 @@ const munroBaggerPath = `${hillBaggerPath}${munroQuery}`;
 
 export default function App() {
 
-  // is this correct?
+  // is
   Database.createDatabase()
 
   // API constants 
@@ -85,18 +88,18 @@ export default function App() {
   const munro = munroData[0]
   // if (munroData) {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="MyClimbsScreen">
-        <Stack.Screen name="ListScreen" component={ListScreen} initialParams={{ munroData }} />
-        <Stack.Screen name="DetailScreen" component={DetailScreen} initialParams={{ munro }} />
-        <Stack.Screen name="AddClimbScreen" component={AddClimbScreen} initialParams={{ munro }} />
-        <Stack.Screen name="MyClimbsScreen" component={MyClimbsScreen} />
-        <Stack.Screen name="Test" component={Test} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="ListScreen">
+          <Stack.Screen name="ListScreen" component={ListScreen} initialParams={{ munroData }} />
+          <Stack.Screen name="DetailScreen" component={DetailScreen} initialParams={{ munro }} />
+          <Stack.Screen name="AddClimbScreen" component={AddClimbScreen} initialParams={{ munro }} />
+          <Stack.Screen name="MyClimbsScreen" component={MyClimbsScreen} />
+          <Stack.Screen name="Test" component={Test} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
-  // }
-
 }
 
 const styles = StyleSheet.create({

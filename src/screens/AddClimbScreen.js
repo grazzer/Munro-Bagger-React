@@ -10,7 +10,6 @@ import { DateTimePickerModal } from 'react-native-modal-datetime-picker';
 import { TimerPickerModal } from "react-native-timer-picker";
 
 
-
 export default function AddClimbScreen({ navigation, route }) {
 
 
@@ -71,6 +70,12 @@ export default function AddClimbScreen({ navigation, route }) {
         { key: '2', value: 'Miles' },
 
     ]
+
+    AddClimb = () => {
+        Database.addNewClimb(munroNumber, date, weather, distance, time, friend, unitKm)
+
+        navigation.navigate('DetailScreen', { munro })
+    }
 
     return (
         <View style={styles.container}>
@@ -273,7 +278,7 @@ export default function AddClimbScreen({ navigation, route }) {
                     <Button
                         color='#3ECEB1'
                         title="Add Climb"
-                        onPress={() => Database.addNewClimb(munroNumber, date, weather, distance, time, friend, unitKm)}
+                        onPress={() => AddClimb()}
                         style={styles.button}
                     />
                 </View >

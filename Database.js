@@ -1,8 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
 import * as SQLite from "expo-sqlite";
-import { Text, TouchableOpacity, StyleSheet, View, TextInput, Button, SafeAreaView, KeyboardAvoidingView } from 'react-native';
-
 
 class Database {
 

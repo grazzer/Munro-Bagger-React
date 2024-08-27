@@ -3,6 +3,10 @@ import { StyleSheet, Text, View, FlatList, TouchableWithoutFeedback, ActivityInd
 import Database from "../../Database";
 import Spacer from "../components/Spacer";
 
+
+import { useDispatch, useSelector } from "react-redux";
+import { todoAdded, todoToggled } from "../../redux/features/todos/todoSlice"
+
 export default function MyClimbsScreen({ route }) {
 
     const [myClimbsData, setMyClimbsData] = useState(null);
@@ -30,7 +34,7 @@ export default function MyClimbsScreen({ route }) {
 
     return (
         <View>
-            <Text>My Climbs</Text>
+            <Text style={styles.tital}>My Climbs</Text>
             <FlatList
                 keyExtractor={(item) => item}
                 data={climbedMunros}
@@ -149,6 +153,11 @@ function Details({ IconName, data }) {
 }
 
 const styles = StyleSheet.create({
+    tital: {
+        fontSize: 25,
+        padding: 5,
+        alignSelf: "center",
+    },
     InfoText: {
         fontSize: 16
     },
