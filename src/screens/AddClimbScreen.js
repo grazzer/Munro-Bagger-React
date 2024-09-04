@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import { Text, TouchableOpacity, StyleSheet, View, TextInput, Button, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import { Picker } from "@react-native-picker/picker";
 import Spacer from "../components/Spacer";
+import SafeViewAndroid from "../styleSheets/AndroidSafeArea.js";
 import Database from "../../Database";
 import { SelectList } from 'react-native-dropdown-select-list'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { DateTimePickerModal } from 'react-native-modal-datetime-picker';
 import { TimerPickerModal } from "react-native-timer-picker";
-
 
 export default function AddClimbScreen({ navigation, route }) {
 
@@ -78,213 +78,216 @@ export default function AddClimbScreen({ navigation, route }) {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.tital}>Add New Climb</Text>
-            <KeyboardAwareScrollView
-                style={styles.inputContainerScroll}
-            >
-                <View style={styles.inputContainer}>
-                    <Text style={styles.header}>Munro Details</Text>
-                    {/* <View style={styles.divider} /> */}
-                    {/* <TextInput
-                autoCapitalize="none"
-                autoCorrect={false}
-                clearButtonMode="always"
-                value={munroNumber.toString()}
-                onChangeText={queryText => setMunroNumber(parseInt(queryText))}
-                placeholder="Insert Munro Number"
-            // style={styles.searchBoxInput}
-            /> */}
-                    {/* number row */}
-                    <View style={styles.row}>
-                        <View style={styles.titleColumn}>
-                            <Text style={styles.text}>
-                                Number:
-                            </Text>
+        <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
+            <View style={styles.container}>
+                <Text style={styles.tital}>Add New Climb</Text>
+                <KeyboardAwareScrollView
+                    style={styles.inputContainerScroll}
+                >
+                    <View style={styles.inputContainer}>
+                        <Text style={styles.header}>Munro Details</Text>
+                        {/* <View style={styles.divider} /> */}
+                        {/* <TextInput
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    clearButtonMode="always"
+                    value={munroNumber.toString()}
+                    onChangeText={queryText => setMunroNumber(parseInt(queryText))}
+                    placeholder="Insert Munro Number"
+                // style={styles.searchBoxInput}
+                /> */}
+                        {/* number row */}
+                        <View style={styles.row}>
+                            <View style={styles.titleColumn}>
+                                <Text style={styles.text}>
+                                    Number:
+                                </Text>
+                            </View>
+                            <View style={styles.inputColumn}>
+                                <Text>
+                                    {munroNumber.toString()}
+                                </Text>
+                            </View>
                         </View>
-                        <View style={styles.inputColumn}>
-                            <Text>
-                                {munroNumber.toString()}
-                            </Text>
+                        {/* name row */}
+                        <View style={styles.row}>
+                            <View style={styles.titleColumn}>
+                                <Text style={styles.text}>
+                                    Name:
+                                </Text>
+                            </View>
+                            <View style={styles.inputColumn}>
+                                <Text>
+                                    {munroName}
+                                </Text>
+                            </View>
                         </View>
-                    </View>
-                    {/* name row */}
-                    <View style={styles.row}>
-                        <View style={styles.titleColumn}>
-                            <Text style={styles.text}>
-                                Name:
-                            </Text>
-                        </View>
-                        <View style={styles.inputColumn}>
-                            <Text>
-                                {munroName}
-                            </Text>
-                        </View>
-                    </View>
-                    {/* date  */}
-                    <View style={styles.row}>
-                        <View style={styles.titleColumn}>
-                            <Text style={styles.text}>
-                                Date:
-                            </Text>
-                        </View>
-                        <View style={styles.inputColumn}>
-                            <TouchableOpacity onPress={showDatePicker}>
-                                <Text>{selectedDate.getDate()}/{selectedDate.getMonth() + 1}/{selectedDate.getFullYear()}</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={setDateToday}>
-                                <Text>Today</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={setDateYesterday}>
-                                <Text>Yesterday</Text>
-                            </TouchableOpacity>
+                        {/* date  */}
+                        <View style={styles.row}>
+                            <View style={styles.titleColumn}>
+                                <Text style={styles.text}>
+                                    Date:
+                                </Text>
+                            </View>
+                            <View style={styles.inputColumn}>
+                                <TouchableOpacity onPress={showDatePicker}>
+                                    <Text>{selectedDate.getDate()}/{selectedDate.getMonth() + 1}/{selectedDate.getFullYear()}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={setDateToday}>
+                                    <Text>Today</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={setDateYesterday}>
+                                    <Text>Yesterday</Text>
+                                </TouchableOpacity>
 
-                            {/* <TextInput
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                clearButtonMode="always"
-                                value={selectedDate.toString()}
-                                onChangeText={showDatePicker}
-                                placeholder="Insert Date"
-                                style={styles.searchBoxInput}
-                                showSoftInputOnFocus={false}
-                            /> */}
+                                {/* <TextInput
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    clearButtonMode="always"
+                                    value={selectedDate.toString()}
+                                    onChangeText={showDatePicker}
+                                    placeholder="Insert Date"
+                                    style={styles.searchBoxInput}
+                                    showSoftInputOnFocus={false}
+                                /> */}
+                            </View>
                         </View>
-                    </View>
 
-                    <DateTimePickerModal
-                        date={selectedDate}
-                        // isVisible={true}
-                        style={{ width: 320, backgroundColor: "white" }}
-                        isVisible={datePickerVisible}
-                        mode="date"
-                        onConfirm={handleConfirm}
-                        onCancel={hideDatePicker}
-                    />
-
-                    {/* weather row */}
-                    <View style={styles.row}>
-                        <View style={styles.titleColumn}>
-                            <Text style={styles.text}>
-                                Weather:
-                            </Text>
-                        </View>
-                        <View style={styles.inputColumn}>
-                            <Picker
-                                selectedValue={weather}
-                                style={{ height: 50, width: 240 }}
-                                mode={"dialog"}
-                                onValueChange={(itemValue) => setWeather(itemValue)}
-                            >
-                                <Picker.Item label="Sunny" value="sunny" />
-                                <Picker.Item label="Raining" value="raining" />
-                                <Picker.Item label="Overcast" value="overcast" />
-                                <Picker.Item label="Snowing" value="snowing" />
-                            </Picker>
-                            {/* <TextInput
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            clearButtonMode="always"
-                            value={weather}
-                            onChangeText={queryText => setWeather(queryText)}
-                            placeholder="Select Weather"
-                            style={styles.searchBoxInput}
-                        /> */}
-                        </View>
-                    </View>
-                    {/* distance row */}
-                    <View style={styles.row}>
-                        <View style={styles.titleColumn}>
-                            <Text style={styles.text}>
-                                Distance:
-                            </Text>
-                        </View>
-                        <View style={styles.inputColumn}>
-                            <TextInput
-
-                                keyboardType='numeric'
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                clearButtonMode="always"
-                                value={distance.toString()}
-                                onChangeText={queryText => setDistance(parseInt(queryText))}
-                                placeholder="Insert Distance Walked"
-                                style={styles.searchBoxInputDistance}
-                            />
-                        </View>
-                        <SelectList
-                            setSelected={(val) => setUnitKm(val)}
-                            placeholder={unitKm}
-                            data={data}
-                            save="value"
-                            boxStyles={{ borderWidth: 0, padding: 0, marginTop: -8, width: 80 }}
-                            inputStyles={{ margin: 0 }}
-                            dropdownStyles={{ borderWidth: 0, backgroundColor: '#F5F5F5' }}
-                            dropDownDirection="TOP"
+                        <DateTimePickerModal
+                            date={selectedDate}
+                            // isVisible={true}
+                            style={{ width: 320, backgroundColor: "white" }}
+                            isVisible={datePickerVisible}
+                            mode="date"
+                            onConfirm={handleConfirm}
+                            onCancel={hideDatePicker}
                         />
-                    </View>
-                    {/* time row */}
-                    <View style={styles.row}>
-                        <View style={styles.titleColumn}>
-                            <Text style={styles.text}>
-                                Time:
-                            </Text>
-                        </View>
-                        <View style={styles.inputColumn}>
-                            <TouchableOpacity onPress={showTimePicker}>
-                                <Text>{time}</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <TimerPickerModal
-                        visible={showPicker}
-                        setIsVisible={setShowPicker}
-                        hideSeconds={(true)}
-                        onConfirm={(pickedDuration) => {
-                            var newTime = pickedDuration.hours + ' : ' + pickedDuration.minutes
-                            setTime(newTime);
-                            setShowPicker(false);
-                        }}
-                        modalTitle="Select Duration"
-                        onCancel={() => setShowPicker(false)}
-                        closeOnOverlayPress
-                        // LinearGradient={LinearGradient}
-                        styles={{
-                            theme: "light",
-                        }}
-                        modalProps={{
-                            overlayOpacity: 0.2,
-                        }}
-                    />
-                    {/* friends row */}
-                    <View style={styles.row}>
-                        <View style={styles.titleColumn}>
-                            <Text style={styles.text}>
-                                Friends:
-                            </Text>
-                        </View>
-                        <View style={styles.inputColumn}>
-                            <TextInput
+
+                        {/* weather row */}
+                        <View style={styles.row}>
+                            <View style={styles.titleColumn}>
+                                <Text style={styles.text}>
+                                    Weather:
+                                </Text>
+                            </View>
+                            <View style={styles.inputColumn}>
+                                <Picker
+                                    selectedValue={weather}
+                                    style={{ height: 50, width: 240 }}
+                                    mode={"dialog"}
+                                    onValueChange={(itemValue) => setWeather(itemValue)}
+                                >
+                                    <Picker.Item label="Sunny" value="sunny" />
+                                    <Picker.Item label="Raining" value="raining" />
+                                    <Picker.Item label="Overcast" value="overcast" />
+                                    <Picker.Item label="Snowing" value="snowing" />
+                                </Picker>
+                                {/* <TextInput
                                 autoCapitalize="none"
                                 autoCorrect={false}
                                 clearButtonMode="always"
-                                value={friend}
-                                onChangeText={queryText => setFriend(queryText)}
-                                placeholder="Insert friends"
+                                value={weather}
+                                onChangeText={queryText => setWeather(queryText)}
+                                placeholder="Select Weather"
                                 style={styles.searchBoxInput}
+                            /> */}
+                            </View>
+                        </View>
+                        {/* distance row */}
+                        <View style={styles.row}>
+                            <View style={styles.titleColumn}>
+                                <Text style={styles.text}>
+                                    Distance:
+                                </Text>
+                            </View>
+                            <View style={styles.inputColumn}>
+                                <TextInput
+
+                                    keyboardType='numeric'
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    clearButtonMode="always"
+                                    value={distance.toString()}
+                                    onChangeText={queryText => setDistance(parseInt(queryText))}
+                                    placeholder="Insert Distance Walked"
+                                    style={styles.searchBoxInputDistance}
+                                />
+                            </View>
+                            <SelectList
+                                setSelected={(val) => setUnitKm(val)}
+                                placeholder={unitKm}
+                                data={data}
+                                save="value"
+                                boxStyles={{ borderWidth: 0, padding: 0, marginTop: -8, width: 80 }}
+                                inputStyles={{ margin: 0 }}
+                                dropdownStyles={{ borderWidth: 0, backgroundColor: '#F5F5F5' }}
+                                dropDownDirection="TOP"
                             />
                         </View>
-                    </View>
-                    <Button
-                        color='#3ECEB1'
-                        title="Add Climb"
-                        onPress={() => AddClimb()}
-                        style={styles.button}
-                    />
-                </View >
-            </KeyboardAwareScrollView>
-        </View>
+                        {/* time row */}
+                        <View style={styles.row}>
+                            <View style={styles.titleColumn}>
+                                <Text style={styles.text}>
+                                    Time:
+                                </Text>
+                            </View>
+                            <View style={styles.inputColumn}>
+                                <TouchableOpacity onPress={showTimePicker}>
+                                    <Text>{time}</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        <TimerPickerModal
+                            visible={showPicker}
+                            setIsVisible={setShowPicker}
+                            hideSeconds={(true)}
+                            onConfirm={(pickedDuration) => {
+                                var newTime = pickedDuration.hours + ' : ' + pickedDuration.minutes
+                                setTime(newTime);
+                                setShowPicker(false);
+                            }}
+                            modalTitle="Select Duration"
+                            onCancel={() => setShowPicker(false)}
+                            closeOnOverlayPress
+                            // LinearGradient={LinearGradient}
+                            styles={{
+                                theme: "light",
+                            }}
+                            modalProps={{
+                                overlayOpacity: 0.2,
+                            }}
+                        />
+                        {/* friends row */}
+                        <View style={styles.row}>
+                            <View style={styles.titleColumn}>
+                                <Text style={styles.text}>
+                                    Friends:
+                                </Text>
+                            </View>
+                            <View style={styles.inputColumn}>
+                                <TextInput
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    clearButtonMode="always"
+                                    value={friend}
+                                    onChangeText={queryText => setFriend(queryText)}
+                                    placeholder="Insert friends"
+                                    style={styles.searchBoxInput}
+                                />
+                            </View>
+                        </View>
+                        <Button
+                            color='#3ECEB1'
+                            title="Add Climb"
+                            onPress={() => AddClimb()}
+                            style={styles.button}
+                        />
+                    </View >
+                </KeyboardAwareScrollView>
+            </View>
+        </SafeAreaView>
     )
+
 }
 const styles = StyleSheet.create({
     container: {
@@ -382,4 +385,6 @@ const styles = StyleSheet.create({
 //         console.log(JSON.stringify(rows))
 //     );
 // }
+
+
 

@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList, TouchableWithoutFeedback, ActivityIndicator, TextInput } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableWithoutFeedback, ActivityIndicator, TextInput, SafeAreaView } from 'react-native';
 import Database from "../../Database";
+import SafeViewAndroid from "../styleSheets/AndroidSafeArea.js";
 import Spacer from "../components/Spacer";
 import { createIconSetFromIcoMoon } from '@expo/vector-icons';
 
@@ -40,15 +41,17 @@ export default function MyClimbsScreen({ navigation, route }) {
     }
 
     return (  
-        <View style={styles.container}>
-            <Text style={styles.tital}>My Climbs</Text>
-            <FlatList
-                style={styles.flatList}
-                keyExtractor={(item) => item}
-                data={climbedMunros}
-                renderItem={({ item }) => (<ClimbedCard munro={item} allClimbs={myClimbsData} />)}
-            />
-        </View>
+        <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
+            <View style={styles.container}>
+                <Text style={styles.tital}>My Climbs</Text>
+                <FlatList
+                    style={styles.flatList}
+                    keyExtractor={(item) => item}
+                    data={climbedMunros}
+                    renderItem={({ item }) => (<ClimbedCard munro={item} allClimbs={myClimbsData} />)}
+                />
+            </View>
+        </SafeAreaView>
     );
 }
 
@@ -59,21 +62,21 @@ const ClimbedCard = (props) => {
     const array = allClimbs.filter(item => item.munro == munro);
 
     return (
-        <View style={styles.munroContainer}>
-            <View style={[styles.munroCard, styles.Shadow]}>
-                <View style={styles.munroCardDetails}>
-                    <Text style={styles.munroNameText} numberOfLines={1}>{munro}</Text>
-                    <Spacer size={5} />
-                    <Details IconName="location" data={' munro.County'} />
-                    <FlatList
-                        keyExtractor={(item) => item.id}
-                        data={array}
-                        renderItem={({ item, index }) => (<ShowClimb climb={item} assent={index} />)}
-                    // ListEmptyComponent
-                    />
+            <View style={styles.munroContainer}>
+                <View style={[styles.munroCard, styles.Shadow]}>
+                    <View style={styles.munroCardDetails}>
+                        <Text style={styles.munroNameText} numberOfLines={1}>{munro}</Text>
+                        <Spacer size={5} />
+                        <Details IconName="location" data={' munro.County'} />
+                        <FlatList
+                            keyExtractor={(item) => item.id}
+                            data={array}
+                            renderItem={({ item, index }) => (<ShowClimb climb={item} assent={index} />)}
+                        // ListEmptyComponent
+                        />
+                    </View>
                 </View>
             </View>
-        </View>
     )
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList, RefreshControl, ActivityIndicator, TextInput, Button, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, FlatList, RefreshControl, ActivityIndicator, TextInput, Button, TouchableHighlight, SafeAreaView } from 'react-native';
 import MunroCard from "../components/MunroCard";
+import SafeViewAndroid from "../styleSheets/AndroidSafeArea.js";
 import filter from 'lodash.filter';
 
 // TODO - VirtualizedList: You have a large list that is slow to update - make sure your renderItem function renders components that follow React performance best practices like PureComponent, shouldComponentUpdate, etc. {"contentLength": 11917.8662109375, "dt": 778, "prevDt": 710}
@@ -36,31 +37,33 @@ export default function ListScreen({ navigation, route }) {
     test = () =>{console.log("PRESSED BAG")};
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.tital}>Munros</Text>
-            <FlatList
-                style={styles.flatList}
-                keyExtractor={(item) => item.Number}
-                data={ListData}
-                renderItem={({ item }) => (<MunroCard munro={item} climbed={false} navigation={navigation}/>)}
+        <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
+            <View style={styles.container}>
+                <Text style={styles.tital}>Munros</Text>
+                <FlatList
+                    style={styles.flatList}
+                    keyExtractor={(item) => item.Number}
+                    data={ListData}
+                    renderItem={({ item }) => (<MunroCard munro={item} climbed={false} navigation={navigation}/>)}
 
-                ListHeaderComponent={
-                    <View style={styles.searchBox}>
-                        <TextInput
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            clearButtonMode="always"
-                            value={query}
-                            onChangeText={queryText => setQuery(queryText) | handleSearch(queryText)}
-                            placeholder="Search"
-                            style={styles.searchBoxInput}
-                        />
-                    </View>}
-            // refreshControl={
-            //   <RefreshControl refreshing={RefreshingList} onRefresh={onRefresh} />
-            // } 
-            />
-        </View>
+                    ListHeaderComponent={
+                        <View style={styles.searchBox}>
+                            <TextInput
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                clearButtonMode="always"
+                                value={query}
+                                onChangeText={queryText => setQuery(queryText) | handleSearch(queryText)}
+                                placeholder="Search"
+                                style={styles.searchBoxInput}
+                            />
+                        </View>}
+                // refreshControl={
+                //   <RefreshControl refreshing={RefreshingList} onRefresh={onRefresh} />
+                // } 
+                />
+            </View>
+        </SafeAreaView>
     );
 }
 

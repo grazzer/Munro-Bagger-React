@@ -5,6 +5,7 @@ import { Text, StyleSheet, View, TextInput, Button, SafeAreaView, Image } from '
 import { Picker } from "@react-native-picker/picker";
 import Spacer from "../components/Spacer";
 import { SelectList } from 'react-native-dropdown-select-list'
+import SafeViewAndroid from "../styleSheets/AndroidSafeArea.js";
 import Icon from './icon.png'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -46,6 +47,7 @@ export default function Test({ navigation, route }) {
     ]
 
     return (
+        
         // <View style={{ flex: 1, backgroundColor: 'red' }}>
         //     <View style={{ flex: 1, backgroundColor: 'powderblue', margin: 20 }}>
         //         <Image source={Icon}
@@ -70,38 +72,41 @@ export default function Test({ navigation, route }) {
         //         <View style={{ height: 60 }} />
         //     </View>
         // </View>
-        <View
-            style={styles.container}
-        >
-            <KeyboardAwareScrollView
-                style={styles.inputContainer}
+
+        <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
+            <View
+                style={styles.container}
             >
-                <View
-                    style={styles.inputContainertwo}
+                <KeyboardAwareScrollView
+                    style={styles.inputContainer}
                 >
-                    <Image source={Icon}
-                        style={styles.logo}
-                    />
-                    <TextInput
-                        placeholder="Email"
-                        style={styles.input}
-                    />
-                    <TextInput
-                        placeholder="Username"
-                        style={styles.input}
-                    />
-                    <TextInput
-                        placeholder="Password"
-                        style={styles.input}
-                    />
-                    <TextInput
-                        placeholder="Confirm Password"
-                        style={styles.input}
-                    />
-                    <View style={{ height: 60 }} />
-                </View>
-            </KeyboardAwareScrollView>
-        </View >
+                    <View
+                        style={styles.inputContainertwo}
+                    >
+                        <Image source={Icon}
+                            style={styles.logo}
+                        />
+                        <TextInput
+                            placeholder="Email"
+                            style={styles.input}
+                        />
+                        <TextInput
+                            placeholder="Username"
+                            style={styles.input}
+                        />
+                        <TextInput
+                            placeholder="Password"
+                            style={styles.input}
+                        />
+                        <TextInput
+                            placeholder="Confirm Password"
+                            style={styles.input}
+                        />
+                        <View style={{ height: 60 }} />
+                    </View>
+                </KeyboardAwareScrollView>
+            </View >
+        </SafeAreaView>
     )
 }
 const styles = StyleSheet.create({
