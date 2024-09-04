@@ -2,12 +2,19 @@ import React, { useState, useCallback, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList, TouchableWithoutFeedback, ActivityIndicator, TextInput } from 'react-native';
 import Database from "../../Database";
 import Spacer from "../components/Spacer";
+import { createIconSetFromIcoMoon } from '@expo/vector-icons';
+
+const Icon = createIconSetFromIcoMoon(
+    require('../../assets/icomoon/selection.json'),
+    'IcoMoon',
+    'icomoon.ttf'
+);
 
 
 import { useDispatch, useSelector } from "react-redux";
 import { todoAdded, todoToggled } from "../../redux/features/todos/todoSlice"
 
-export default function MyClimbsScreen({ route }) {
+export default function MyClimbsScreen({ navigation, route }) {
 
     const [myClimbsData, setMyClimbsData] = useState(null);
     const [climbedMunros, setClimbedMunros] = useState(null);
@@ -32,10 +39,11 @@ export default function MyClimbsScreen({ route }) {
         return myClimbsData.munro;
     }
 
-    return (
-        <View>
+    return (  
+        <View style={styles.container}>
             <Text style={styles.tital}>My Climbs</Text>
             <FlatList
+                style={styles.flatList}
                 keyExtractor={(item) => item}
                 data={climbedMunros}
                 renderItem={({ item }) => (<ClimbedCard munro={item} allClimbs={myClimbsData} />)}
@@ -43,14 +51,6 @@ export default function MyClimbsScreen({ route }) {
         </View>
     );
 }
-
-import { createIconSetFromIcoMoon } from '@expo/vector-icons';
-
-const Icon = createIconSetFromIcoMoon(
-    require('../../assets/icomoon/selection.json'),
-    'IcoMoon',
-    'icomoon.ttf'
-);
 
 const ClimbedCard = (props) => {
     const { munro, allClimbs } = props
@@ -119,7 +119,6 @@ function ShowClimb({ climb, assent }) {
                     <Icon name='backpack' size={22} />
                 </View>
                 <Spacer size={10} />
-
             </View>
         )
 
@@ -153,6 +152,11 @@ function Details({ IconName, data }) {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 5,
+        backgroundColor: '#F5F5F5',
+    },
     tital: {
         fontSize: 25,
         padding: 5,
@@ -205,6 +209,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingHorizontal: 15,
         paddingVertical: 10
+    },
+    flatList: {
+        flex: 1,
+        borderRadius: 20,
+        marginBottom: 20
     },
 });
 

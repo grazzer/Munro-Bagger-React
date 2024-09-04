@@ -1,7 +1,9 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList, RefreshControl, ActivityIndicator, TextInput } from 'react-native';
+import { StyleSheet, Text, View, FlatList, RefreshControl, ActivityIndicator, TextInput, Button, TouchableHighlight } from 'react-native';
 import MunroCard from "../components/MunroCard";
 import filter from 'lodash.filter';
+
+// TODO - VirtualizedList: You have a large list that is slow to update - make sure your renderItem function renders components that follow React performance best practices like PureComponent, shouldComponentUpdate, etc. {"contentLength": 11917.8662109375, "dt": 778, "prevDt": 710}
 
 export default function ListScreen({ navigation, route }) {
     const list = route.params.munroData
@@ -30,6 +32,8 @@ export default function ListScreen({ navigation, route }) {
         }
         return false;
     };
+     
+    test = () =>{console.log("PRESSED BAG")};
 
     return (
         <View style={styles.container}>
@@ -38,7 +42,7 @@ export default function ListScreen({ navigation, route }) {
                 style={styles.flatList}
                 keyExtractor={(item) => item.Number}
                 data={ListData}
-                renderItem={({ item }) => (<MunroCard munro={item} climbed={false} navigation={navigation} />)}
+                renderItem={({ item }) => (<MunroCard munro={item} climbed={false} navigation={navigation}/>)}
 
                 ListHeaderComponent={
                     <View style={styles.searchBox}>
@@ -65,7 +69,6 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 5,
         backgroundColor: '#F5F5F5',
-
     },
     tital: {
         fontSize: 25,
@@ -75,7 +78,8 @@ const styles = StyleSheet.create({
     flatList: {
         flex: 1,
         borderRadius: 20,
-        marginBottom: 20
+        marginBottom: 0
+        // TODO maybe have a fade out here
     },
     searchBox: {
         backgroundColor: '#fff',
@@ -89,3 +93,51 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20
     },
 });
+
+
+// var styles = StyleSheet.create({
+//     btnClickContain: {
+//       flex: 1,
+//       flexDirection: 'row',
+//       justifyContent: 'center',
+//       alignItems: 'stretch',
+//       alignSelf: 'stretch',
+//       backgroundColor: '#009D6E',
+//       borderRadius: 5,
+//       padding: 5,
+//       marginTop: 5,
+//       marginBottom: 5,
+//     },
+//     btnContainer: {
+//       flex: 1,
+//       flexDirection: 'row',
+//       justifyContent: 'center',
+//       alignItems: 'stretch',
+//       alignSelf: 'stretch',
+//       borderRadius: 10,
+//     },
+//     btnIcon: {
+//       height: 25,
+//       width: 25,
+//     },
+//     btnText: {
+//       fontSize: 18,
+//       color: '#FAFAFA',
+//       marginLeft: 10,
+//       marginTop: 2,
+//     }
+//   });
+  
+//   <TouchableHighlight
+//     onPress={this.onBooking} style={styles.btnClickContain}
+//     underlayColor='#042417'>
+//     <View
+//       style={styles.btnContainer}>
+//       <Icon
+//         name='fontawesome|facebook-square'
+//         size={25}
+//         color='#042'
+//         style={styles.btnIcon}/>
+//       <Text style={styles.btnText}>Sign In with Facebook</Text>
+//     </View>
+//   </TouchableHighlight>
