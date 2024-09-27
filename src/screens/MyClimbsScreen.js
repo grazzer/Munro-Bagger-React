@@ -4,6 +4,8 @@ import Database from "../../Database";
 import SafeViewAndroid from "../styleSheets/AndroidSafeArea.js";
 import Spacer from "../components/Spacer";
 import { createIconSetFromIcoMoon } from '@expo/vector-icons';
+import {add, getListAsync} from "../../redux/features/BaggedList";
+import { useSelector, useDispatch } from "react-redux";
 
 const Icon = createIconSetFromIcoMoon(
     require('../../assets/icomoon/selection.json'),
@@ -12,33 +14,10 @@ const Icon = createIconSetFromIcoMoon(
 );
 
 
-import { useDispatch, useSelector } from "react-redux";
-import { todoAdded, todoToggled } from "../../redux/features/todos/todoSlice"
-
 export default function MyClimbsScreen({ navigation, route }) {
 
-    const [myClimbsData, setMyClimbsData] = useState(null);
-    const [climbedMunros, setClimbedMunros] = useState(null);
-    useEffect(() => {
-        Database.getAllClimbs().then(
-            (climbsData) => {
-                setMyClimbsData(climbsData)
-            }
-        ).catch((message) => {
-            console.log(message)
-        })
-    }, [])
-
-    if (climbedMunros == null && myClimbsData) {
-        const array = myClimbsData.map(getMunroNumbers);
-        setClimbedMunros([...new Set(array)])
-        // console.log(climbedMunros)
-    }
-    console.log(climbedMunros)
-
-    function getMunroNumbers(myClimbsData) {
-        return myClimbsData.munro;
-    }
+    const myClimbsState = useSelector(state => state.baggedlist);
+    const dispatch = useDispatch();
 
     return (  
         <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
@@ -47,8 +26,8 @@ export default function MyClimbsScreen({ navigation, route }) {
                 <FlatList
                     style={styles.flatList}
                     keyExtractor={(item) => item}
-                    data={climbedMunros}
-                    renderItem={({ item }) => (<ClimbedCard munro={item} allClimbs={myClimbsData} />)}
+                    data={myClimbsState.assentList}
+                    renderItem={({ item }) => (<ClimbedCard munro={item} allClimbs={myClimbsState.climbData} />)}
                 />
             </View>
         </SafeAreaView>
@@ -57,7 +36,6 @@ export default function MyClimbsScreen({ navigation, route }) {
 
 const ClimbedCard = (props) => {
     const { munro, allClimbs } = props
-    const climb = allClimbs[0]
 
     const array = allClimbs.filter(item => item.munro == munro);
 

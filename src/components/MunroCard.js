@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import Spacer from './Spacer';
 import { createIconSetFromIcoMoon } from '@expo/vector-icons';
+import { useSelector } from "react-redux";
 
 const Icon = createIconSetFromIcoMoon(
     require('../../assets/icomoon/selection.json'),
@@ -12,10 +13,16 @@ const Icon = createIconSetFromIcoMoon(
 
 const MunroCard = (props) => {
 
+    const myClimbsState = useSelector(state => state.baggedlist);
+
     const { munro, climbed, navigation } = props
-    if (climbed == true) {
+    
+    if (myClimbsState.assentList.includes(munro.Number)){
         backpackColour = 'gold'
-    }
+    }    
+    // if (climbed == true) {
+    //     backpackColour = 'gold'
+    // }
     else { backpackColour = '#D9D8D8' }
 
     // onPress={() => navigation.navigate('DetailScreen')}>

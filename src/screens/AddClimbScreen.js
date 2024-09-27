@@ -9,11 +9,14 @@ import { SelectList } from 'react-native-dropdown-select-list'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { DateTimePickerModal } from 'react-native-modal-datetime-picker';
 import { TimerPickerModal } from "react-native-timer-picker";
+import {add, getListAsync} from "../../redux/features/BaggedList";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function AddClimbScreen({ navigation, route }) {
 
+    const testList = useSelector(state => state.baggedlist);
+    const dispatch = useDispatch();
 
-    Database.LogAllClimbs()
     const munro = route.params.munro
 
     const [munroNumber, setMunroNumber] = useState("")
@@ -72,8 +75,11 @@ export default function AddClimbScreen({ navigation, route }) {
     ]
 
     AddClimb = () => {
+        // Database.removeAllClimbs()
         Database.addNewClimb(munroNumber, date, weather, distance, time, friend, unitKm)
 
+        dispatch(getListAsync());
+        
         navigation.navigate('DetailScreen', { munro })
     }
 

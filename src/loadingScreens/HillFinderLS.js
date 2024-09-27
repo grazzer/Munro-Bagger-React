@@ -8,7 +8,8 @@ import DetailScreen from "../screens/DetailScreen";
 import AddClimbScreen from "../screens/AddClimbScreen";
 import MyClimbsScreen from "../screens/MyClimbsScreen";
 import Test from "../screens/Test";
-import { Provider } from "react-redux";
+import {add, getListAsync} from "../../redux/features/BaggedList";
+import { useSelector, useDispatch } from "react-redux";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,16 @@ const munroQuery = "/munros";
 const munroBaggerPath = `${hillBaggerPath}${munroQuery}`;
 
 export default function HillFinderLS() {
+
+
+    const testList = useSelector(state => state.baggedlist);
+    const dispatch = useDispatch();
+
+
+    // useEffect(() => {
+    //   dispatch(getListAsync());
+    //   },[])
+    
 
     // API constants 
     const [munroData, setMunroData] = useState([]);
