@@ -3,22 +3,35 @@ import { StyleSheet, Text, View, FlatList, RefreshControl, ActivityIndicator, Te
 import MunroCard from "../components/MunroCard";
 import SafeViewAndroid from "../styleSheets/AndroidSafeArea.js";
 import filter from 'lodash.filter';
+import { useSelector, useDispatch } from "react-redux";
+import {getMunroAsync} from "../../redux/features/MunroList";
 
 // TODO - VirtualizedList: You have a large list that is slow to update - make sure your renderItem function renders components that follow React performance best practices like PureComponent, shouldComponentUpdate, etc. {"contentLength": 11917.8662109375, "dt": 778, "prevDt": 710}
 
 export default function ListScreen({ navigation, route }) {
-    const list = route.params.munroData
+
+    const ListData = useSelector(state => state.munroList);
+    const baggedList = useSelector(state => state.baggedlist);
+    const dispatch = useDispatch();
 
     const [query, setQuery] = useState('');
-    const [ListData, setListData] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
 
-    // TO_LEARN the .Name is not always readable, what is happening here
-    useEffect(() => {
-        // console.log(list[0].Name);
-        setListData(list);
-        // console.log(list[0].Name);
-    }, [])
 
+    const reloadData = () => {
+        dispatch(getMunroAsync());
+        if (ListData.status == "pending"){
+            setRefreshing(true)   
+        }
+        if (ListData.status == "fulfilled"){
+            setRefreshing(false)   
+        }
+        if (ListData.status == "rejected"){
+            setRefreshing(false)   
+        }
+    }
+
+    // no longer working
     const handleSearch = text => {
         const formattedQuery = text.toLowerCase();
         const filteredData = filter(list, munro => {
@@ -32,9 +45,9 @@ export default function ListScreen({ navigation, route }) {
             return true;
         }
         return false;
-    };
-     
-    test = () =>{console.log("PRESSED BAG")};
+    };   
+
+
 
     return (
         <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
@@ -43,7 +56,11 @@ export default function ListScreen({ navigation, route }) {
                 <FlatList
                     style={styles.flatList}
                     keyExtractor={(item) => item.Number}
-                    data={ListData}
+                    data={ListData.munroList}
+                    // extraData={baggedList} //needed??
+                    refreshControl={
+                        <RefreshControl refreshing={refreshing} onRefresh={reloadData} />
+                      }
                     renderItem={({ item }) => (<MunroCard munro={item} climbed={false} navigation={navigation}/>)}
 
                     ListHeaderComponent={

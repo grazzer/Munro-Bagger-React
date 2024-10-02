@@ -8,56 +8,56 @@ import DetailScreen from "../screens/DetailScreen";
 import AddClimbScreen from "../screens/AddClimbScreen";
 import MyClimbsScreen from "../screens/MyClimbsScreen";
 import Test from "../screens/Test";
-import {add, getListAsync} from "../../redux/features/BaggedList";
+import {getMunroAsync} from "../../redux/features/MunroList";
+import {getListAsync} from "../../redux/features/BaggedList";
 import { useSelector, useDispatch } from "react-redux";
 
 const Stack = createNativeStackNavigator();
 
 // API path
-const hillBaggerPath = "https://hill-bagging-api.onrender.com";
-const munroQuery = "/munros";
-const munroBaggerPath = `${hillBaggerPath}${munroQuery}`;
+// const hillBaggerPath = "https://hill-bagging-api.onrender.com";
+// const munroQuery = "/munros";
+// const munroBaggerPath = `${hillBaggerPath}${munroQuery}`;
 
 export default function HillFinderLS() {
 
-
-    const testList = useSelector(state => state.baggedlist);
     const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(getMunroAsync());
+      dispatch(getListAsync());
+      },[])
 
-
-    // useEffect(() => {
-    //   dispatch(getListAsync());
-    //   },[])
+      const muroList = useSelector(state => state.munroList);
     
 
     // API constants 
-    const [munroData, setMunroData] = useState([]);
-    const [Loading, setloading] = useState(false);
-    const [error, setError] = useState(null);
-    // reload API
-    const [reloadMunroData, setReloadMunroData] = useState(false);
-    const toggleSwitch = () => setReloadMunroData(previousState => !previousState);
+    // const [munroData, setMunroData] = useState([]);
+    // const [Loading, setloading] = useState(false);
+    // const [error, setError] = useState(null);
+    // // reload API
+    // const [reloadMunroData, setReloadMunroData] = useState(false);
+    // const toggleSwitch = () => setReloadMunroData(previousState => !previousState);
 
     // get API data
-    useEffect(() => {
-        const fetchMunros = async () => {
-        console.log("fetching Munro's");
-        const munroResults = await fetch(munroBaggerPath)
-        const munros = await munroResults.json();
-        setMunroData(munros)
-        setloading(false)
-        }
-        try {
-        setloading(true)
-        fetchMunros();
-        }
-        catch (error) {
-        setloading(false)
-        setError(error)
-        }
-    }, [reloadMunroData])
+    // useEffect(() => {
+    //     const fetchMunros = async () => {
+    //     console.log("fetching Munro's");
+    //     const munroResults = await fetch(munroBaggerPath)
+    //     const munros = await munroResults.json();
+    //     setMunroData(munros)
+    //     setloading(false)
+    //     }
+    //     try {
+    //     setloading(true)
+    //     fetchMunros();
+    //     }
+    //     catch (error) {
+    //     setloading(false)
+    //     setError(error)
+    //     }
+    // }, [reloadMunroData])
 
-    if (Loading) {
+    if (muroList.status == "pending") {
         console.log("Loading")
         return (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -66,7 +66,7 @@ export default function HillFinderLS() {
         );
     }
     
-    if (error) {
+    if (muroList.status == "rejected") {
         console.log("error")
         return (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -77,6 +77,7 @@ export default function HillFinderLS() {
         );
     }
     
+    const munroData = muroList
     const munro = munroData[0]
     
     return (

@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import Database from '../../Database'
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 const initialState = {
     climbData: [],
@@ -18,7 +17,7 @@ const baggedListSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getListAsync.fulfilled, (state, action) => {
             // console.log("json " + JSON.stringify(action.payload[1]))
-            // console.log("return " + typeof(action.payload))
+            // console.log("return " + action.payload)
             const climbs = [];
             let assentList = [];
 
@@ -51,8 +50,7 @@ const baggedListSlice = createSlice({
 export const getListAsync = createAsyncThunk(
     "baggedList/getListAsync",
     async () => {
-        data = Database.getAllClimbs()
-        return await data.then(
+        return await Database.getAllClimbs().then(
             (climbsData) => {
                 return climbsData;
             },

@@ -5,7 +5,9 @@ import SafeViewAndroid from "../styleSheets/AndroidSafeArea.js";
 import Spacer from "../components/Spacer";
 import { createIconSetFromIcoMoon } from '@expo/vector-icons';
 import {add, getListAsync} from "../../redux/features/BaggedList";
+import {getMunroAsync} from "../../redux/features/MunroList";
 import { useSelector, useDispatch } from "react-redux";
+import fetchMunrosAPI from "../services/HillDataBaseAPI";
 
 const Icon = createIconSetFromIcoMoon(
     require('../../assets/icomoon/selection.json'),
@@ -18,6 +20,17 @@ export default function MyClimbsScreen({ navigation, route }) {
 
     const myClimbsState = useSelector(state => state.baggedlist);
     const dispatch = useDispatch();
+
+
+    // data = Database.getAllClimbs()
+    //     return await data.then(
+    //         (climbsData) => {
+    //             return climbsData;
+    //         },
+    //         (message) => {
+    //             console.log("Error: " + message)
+    //     })  
+
 
     return (  
         <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
