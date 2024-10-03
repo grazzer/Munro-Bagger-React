@@ -20,9 +20,6 @@ const MunroCard = (props) => {
     if (myClimbsState.assentList.includes(munro.Number)){
         backpackColour = 'gold'
     }    
-    // if (climbed == true) {
-    //     backpackColour = 'gold'
-    // }
     else { backpackColour = '#D9D8D8' }
 
     // onPress={() => navigation.navigate('DetailScreen')}>

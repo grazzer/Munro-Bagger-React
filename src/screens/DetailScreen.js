@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
 import { createIconSetFromIcoMoon } from '@expo/vector-icons';
 import Spacer from "../components/Spacer";
@@ -8,9 +8,23 @@ import DetailsMap from "../components/DetailsMap";
 import DetailsClimbed from "../components/DetailsClimbed";
 import DetailsRow from "../components/DetailsRow";
 import DetailsAbout from "../components/DetailsAbout";
+import { useSelector } from "react-redux";
 
 export default function DetailScreen({ navigation, route }) {
     const munro = route.params.munro
+
+    const [climbedData, setClimbedData] = useState([])
+
+    const myClimbsState = useSelector(state => state.baggedlist);
+    
+    useEffect (() => {
+        if (myClimbsState.assentList.includes(munro.Number)){
+            const result = myClimbsState.climbData.filter((data) => data.munro == munro.Number);
+            result.push({"AddClimb": "true"})
+            // result.push({"date": "Add Climb", "distance": "NaN", "friends": "", "id": 0, "key": "0", "munro": 0, "time": 0, "weather": ""})
+            setClimbedData(result);
+        }
+    },[myClimbsState])
 
     return (
         <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
@@ -24,7 +38,7 @@ export default function DetailScreen({ navigation, route }) {
                             <Spacer size={20} />
                             <DetailsHeight hight={munro.Drop} seaLevel={munro.Metres} />
                             <Spacer size={20} />
-                            <DetailsClimbed climbed={false} munro={munro} navigation={navigation} />
+                            <DetailsClimbed climbed={true} climbedList={climbedData} munro={munro} navigation={navigation} />
                             <Spacer size={20} />
                             <DetailsMap lat={munro.Latitude} lon={munro.Longitude} name={munro.Name} />
                             <Spacer size={20} />

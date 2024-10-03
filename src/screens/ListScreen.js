@@ -5,36 +5,42 @@ import SafeViewAndroid from "../styleSheets/AndroidSafeArea.js";
 import filter from 'lodash.filter';
 import { useSelector, useDispatch } from "react-redux";
 import {getMunroAsync} from "../../redux/features/MunroList";
+import {getListAsync} from "../../redux/features/BaggedList";
 
 // TODO - VirtualizedList: You have a large list that is slow to update - make sure your renderItem function renders components that follow React performance best practices like PureComponent, shouldComponentUpdate, etc. {"contentLength": 11917.8662109375, "dt": 778, "prevDt": 710}
 
-export default function ListScreen({ navigation, route }) {
+export default function ListScreen({ navigation }) {
 
-    const ListData = useSelector(state => state.munroList);
+    const munroData = useSelector(state => state.munroList);
     const baggedList = useSelector(state => state.baggedlist);
     const dispatch = useDispatch();
 
     const [query, setQuery] = useState('');
     const [refreshing, setRefreshing] = useState(false);
+    const [listData, setListData] = useState([]);
 
+    useEffect(() => {
+        setListData(munroData.munroList)
+    },[])
 
     const reloadData = () => {
         dispatch(getMunroAsync());
-        if (ListData.status == "pending"){
-            setRefreshing(true)   
+        dispatch(getListAsync());
+        if (munroData.status == "pending"){
+            setRefreshing(true)  
         }
-        if (ListData.status == "fulfilled"){
-            setRefreshing(false)   
+        if (munroData.status == "fulfilled"){
+            setRefreshing(false) 
+            setListData(munroData.munroList)   
         }
-        if (ListData.status == "rejected"){
+        if (munroData.status == "rejected"){
             setRefreshing(false)   
         }
     }
 
-    // no longer working
     const handleSearch = text => {
         const formattedQuery = text.toLowerCase();
-        const filteredData = filter(list, munro => {
+        const filteredData = filter(munroData.munroList, munro => {
             return contains(munro.Name, formattedQuery);
         });
         setListData(filteredData);
@@ -56,7 +62,7 @@ export default function ListScreen({ navigation, route }) {
                 <FlatList
                     style={styles.flatList}
                     keyExtractor={(item) => item.Number}
-                    data={ListData.munroList}
+                    data={listData}
                     // extraData={baggedList} //needed??
                     refreshControl={
                         <RefreshControl refreshing={refreshing} onRefresh={reloadData} />
