@@ -33,6 +33,7 @@ export default function DetailScreen({ navigation, route }) {
                     <ScrollView >
                         <View style={styles.details}>
                             <Text style={styles.name}>{munro.Name}</Text>
+                            <DetailsRow IconName={'hashtag'} data={munro.Number} size={15} />
                             <DetailsRow IconName={'location'} data={munro.County} size={15} />
                             <Spacer size={20} />
                             <DetailsHeight hight={munro.Drop} seaLevel={munro.Metres} />

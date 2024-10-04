@@ -1,10 +1,14 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
+import { useState, useEffect } from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import DetailsBox from "./DetailsBox";
 
 const DetailsMap = ({ lat, lon, name }) => {
 
+
+    // https://stackoverflow.com/questions/72485989/react-native-maps-google-directions-toolbar
+    // possible solution for directing uer to maps app, needed for ios
     return (
         <DetailsBox title='Map' cardStyle={styles.card} >
             <MapView
@@ -15,7 +19,12 @@ const DetailsMap = ({ lat, lon, name }) => {
                     longitude: lon,
                     latitudeDelta: 0.1,
                     longitudeDelta: 0.1,
-                }} >
+                }} 
+                mapType="terrain"
+                showsCompass={true}
+                showsScale={true}
+                toolbarEnabled={true} >
+
                 <Marker
                     coordinate={{
                         latitude: lat,
@@ -27,6 +36,7 @@ const DetailsMap = ({ lat, lon, name }) => {
         </DetailsBox>
     )
 }
+
 
 const styles = StyleSheet.create({
     card: {

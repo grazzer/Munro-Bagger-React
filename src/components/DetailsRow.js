@@ -12,7 +12,7 @@ function DetailsRow({ IconName, data, size = 20 }) {
     let iconSize = size + 8;
     return (
         <View style={styles.InfoRow}>
-            <Icon name={IconName} size={iconSize} color='#3ECEB1' style={styles.InfoSymble} />
+            <Icon name={IconName} size={iconSize - 5} color='#3ECEB1' style={styles.InfoSymble} />
             <Text style={{ fontSize: size }}> {data}</Text>
         </View>
     )
@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
         aspectRatio: 1 / 1,
         margin: 2,
         paddingRight: 5,
-        // backgroundColor = 
     }
 })
 
