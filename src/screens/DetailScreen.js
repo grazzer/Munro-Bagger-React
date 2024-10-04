@@ -21,7 +21,6 @@ export default function DetailScreen({ navigation, route }) {
         if (myClimbsState.assentList.includes(munro.Number)){
             const result = myClimbsState.climbData.filter((data) => data.munro == munro.Number);
             result.push({"AddClimb": "true"})
-            // result.push({"date": "Add Climb", "distance": "NaN", "friends": "", "id": 0, "key": "0", "munro": 0, "time": 0, "weather": ""})
             setClimbedData(result);
         }
     },[myClimbsState])
