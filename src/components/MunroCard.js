@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableWithoutFeedback } from 'react-native';
 import Spacer from './Spacer';
 import { createIconSetFromIcoMoon } from '@expo/vector-icons';
 import { useSelector } from "react-redux";
@@ -28,7 +28,12 @@ const MunroCard = (props) => {
         <TouchableWithoutFeedback onPress={() => navigation.navigate('DetailScreen', { munro })}>
             <View style={styles.munroContainer}>
                 <View style={[styles.munroCard, styles.Shadow]}>
-                    <View style={styles.munroCardImage}></View>
+                    <View style={styles.munroCardImage}>
+                        <Image
+                            style={styles.munroCardImage}
+                            source={{uri: 'https://hillsummits.piwigo.com/_datas/6/9/w/69wjfjw5b4/i/uploads/6/9/w/69wjfjw5b4//2014/11/06/20141106210829-ca587d79-me.jpg',}}                           
+                        />
+                    </View>
                     <View style={styles.munroCardDetails}>
                         <Text style={styles.munroNameText} numberOfLines={1}>{munro.Name}</Text>
                         <Spacer size={5} />

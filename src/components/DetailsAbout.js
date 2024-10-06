@@ -3,30 +3,70 @@ import { Text, StyleSheet, View } from 'react-native';
 import Spacer from "../components/Spacer";
 import DetailsBox from "../components/DetailsBox";
 import DetailsRow from "./DetailsRow";
+import { A } from '@expo/html-elements';
 
 const DetailsAbout = ({ munro }) => {
     return (
         <DetailsBox title='About' cardStyle={styles.card}>
-            <Text style={styles.text}>{'Classification:       ' + munro.Classification}</Text>
-            <Text style={styles.text}>{'Summit feature:    ' + munro.Feature}</Text>
-            <Text style={styles.text}>{'County top:            ' + munro.County_Top}</Text>
-            <Text style={styles.text}>{'Survey:                    ' + munro.Survey}</Text>
-            <Text style={styles.text}>{'Parent SMC:           ' + munro.Parent_name_SMC}</Text>
-            <Text style={styles.text}>{'Parent Ma:              ' + munro.Parent_name_Ma}</Text>
-            <Text style={styles.text}>{'Observations:        ' + munro.Observations}</Text>
-            <Text style={styles.text}>{'Hill bagging URL:    ' + munro.Hill_bagging}</Text>
+            <View>
+                <View>
+                    <Row leftText={'Classification:'} rightText={munro.Classification}/>
+                    <Row leftText={'County top:'} rightText={munro.Feature}/>
+                    <Spacer size={20}/>
+                    <Row leftText={'Parent SMC:'} rightText={munro.Parent_name_SMC}/>
+                    <Row leftText={'Parent Ma:'} rightText={munro.Parent_name_Ma}/>
+                    <Spacer size={20}/>
+                    <Row leftText={'Summit feature:'} rightText={munro.Feature}/>
+                    <Row leftText={'Observations:'} rightText={munro.Observations}/>
+                    <Spacer size={20}/>
+                    <Row leftText={'Survey:'} rightText={munro.Survey}/>
+                </View>
+                <Spacer size={20}/>
+                <View style={styles.linkContainer}>
+                    <A style={styles.textLink} href={munro.Hill_bagging}>See Hill bagging Database</A>
+                </View>
+            </View>
         </DetailsBox>
     )
 }
 
+const Row = ({leftText, rightText}) => {
+    return(
+        <View style={styles.row}>
+            <View style={styles.column}>
+                <Text style={styles.text}>{leftText}</Text>
+            </View>
+            <View style={styles.column}>
+                <Text style={styles.text}>{rightText}</Text>                
+            </View>
+        </View>
+    )
+}
+
 const styles = StyleSheet.create({
+    row: {
+        flexDirection: 'row'
+    },
+    column: {
+        flex: 1
+    },
+
+
+    linkContainer: {
+        alignItems:'center',
+    },
     text: {
         padding: 2,
-        fontSize: 15
+        fontSize: 15,
+
+    },
+    textLink: {
+        padding: 4,
+        fontSize: 18,
+        color: '#3ECEB1',
     },
     card: {
         backgroundColor: '#FFF',
-        // flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 15,
         borderRadius: 8,
