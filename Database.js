@@ -1,4 +1,5 @@
 import * as SQLite from "expo-sqlite";
+import { parse } from "react-native-svg";
 
 class Database {
 
@@ -7,14 +8,14 @@ class Database {
     createDatabase = () => {
         this.db.transaction((tx) => {
             tx.executeSql(
-                "create table if not exists myClimbs (id integer primary key not null, munro int, date int, weather text, distance int, time real, friends text);"
+                "create table if not exists myClimbs (id integer primary key not null, munro int, date text, weather text, distance int, time real, friends text);"
             );
         })
     }
 
     addNewClimb = (munroNumber, date, weather, distance, time, friend, unitKm) => {
         const _munroNumber = parseInt(munroNumber)
-        const _date = parseInt(date)
+        const _date = date.toString()
         const _time = parseFloat(time)
         let _distance = parseInt(distance)
         if (unitKm == 'Miles') {
@@ -50,6 +51,15 @@ class Database {
                 tx.executeSql("select * from myClimbs", [], (_, { rows }) =>
                     console.log(JSON.stringify(rows._array))
                 );
+            },
+            null,
+        );
+    }
+
+    removeClimb = (key) => {
+        this.db.transaction(
+            (tx) => {
+                tx.executeSql("DELETE FROM myClimbs WHERE id = (?)", [key])
             },
             null,
         );

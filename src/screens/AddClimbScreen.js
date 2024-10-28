@@ -51,6 +51,10 @@ export default function AddClimbScreen({ navigation, route }) {
         setSelectedDate(new Date());
     };
 
+    useEffect(() => {
+        setDateToday();
+    },[]);
+
     const setDateYesterday = () => {
         setSelectedDate(new Date((new Date()).valueOf() - 1000 * 60 * 60 * 24));
     };
@@ -76,7 +80,8 @@ export default function AddClimbScreen({ navigation, route }) {
 
     AddClimb = () => {
         // Database.removeAllClimbs()
-        Database.addNewClimb(munroNumber, date, weather, distance, time, friend, unitKm)
+        console.log(selectedDate)
+        Database.addNewClimb(munroNumber, selectedDate, weather, distance, time, friend, unitKm)
 
         dispatch(getListAsync());
         
