@@ -39,20 +39,31 @@ export default function ListScreen({ navigation }) {
     }
 
     const handleSearch = text => {
-        const formattedQuery = text.toLowerCase();
-        const filteredData = filter(munroData.munroList, munro => {
+        const formattedQuery = text;
+        let newList = []
+        newList.push(...filter(munroData.munroList, munro => {
             return contains(munro.Name, formattedQuery);
-        });
-        setListData(filteredData);
+        }));
+        newList.push(...filter(munroData.munroList, munro => {
+            return contains(munro.County, formattedQuery);
+        }));
+        newList.push(...filter(munroData.munroList, munro => {
+            return contains(munro.Number, formattedQuery);
+        }));
+
+        setListData(newList);
         setQuery(text);
     };
-    const contains = (Name, query) => {
-        if (Name.toLowerCase().includes(query)) {
+    const contains = (data, query) => {
+        let _data = data
+        if (typeof(data) != typeof('string')){
+            _data = data.toString()
+            }
+        if (_data.toLowerCase().includes(query.toLowerCase())) {
             return true;
         }
         return false;
     };   
-
 
 
     return (
