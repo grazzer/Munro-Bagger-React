@@ -72,16 +72,27 @@ export default function AddClimbScreen({ navigation, route }) {
         }, []);
     }
 
-    const data = [
-        { key: '1', value: 'Km' },
-        { key: '2', value: 'Miles' },
+    const changeUnits = () => {
+        if(unitKm == "Km"){
+            setUnitKm("mi")
+        }
+        if(unitKm == "mi"){
+            setUnitKm("Km")
+        }
+        console.log(unitKm)
+    }
 
-    ]
+    // const data = [
+    //     { key: '1', value: 'Km' },
+    //     { key: '2', value: 'Miles' },
+
+    // ]
 
     AddClimb = () => {
-        // Database.removeAllClimbs()
+        let _month = selectedDate.getMonth() +1
+        let _date =  selectedDate.getDate() + "/" + _month + "/" + selectedDate.getFullYear();
         console.log(selectedDate)
-        Database.addNewClimb(munroNumber, selectedDate, weather, distance, time, friend, unitKm)
+        Database.addNewClimb(munroNumber, _date, weather, distance, time, friend, unitKm)
 
         dispatch(getListAsync());
         
@@ -133,6 +144,9 @@ export default function AddClimbScreen({ navigation, route }) {
                                 </Text>
                             </View>
                         </View>
+
+                        <View style={{borderColor: 'lightgray', borderBottomWidth: 1, marginHorizontal: 20}}/>
+
                         {/* date  */}
                         <View style={styles.row}>
                             <View style={styles.titleColumn}>
@@ -141,27 +155,19 @@ export default function AddClimbScreen({ navigation, route }) {
                                 </Text>
                             </View>
                             <View style={styles.inputColumn}>
-                                <TouchableOpacity onPress={showDatePicker}>
-                                    <Text>{selectedDate.getDate()}/{selectedDate.getMonth() + 1}/{selectedDate.getFullYear()}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={setDateToday}>
-                                    <Text>Today</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={setDateYesterday}>
-                                    <Text>Yesterday</Text>
-                                </TouchableOpacity>
-
-                                {/* <TextInput
-                                    autoCapitalize="none"
-                                    autoCorrect={false}
-                                    clearButtonMode="always"
-                                    value={selectedDate.toString()}
-                                    onChangeText={showDatePicker}
-                                    placeholder="Insert Date"
-                                    style={styles.searchBoxInput}
-                                    showSoftInputOnFocus={false}
-                                /> */}
+                                <Text>{selectedDate.getDate()}/{selectedDate.getMonth() + 1}/{selectedDate.getFullYear()}</Text>
                             </View>
+                        </View>
+                        <View style={styles.dateRow}>
+                            <TouchableOpacity onPress={showDatePicker}>
+                                <Text style={styles.clickableText}>Select Date</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={setDateToday}>
+                                <Text style={styles.clickableText}>Today</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={setDateYesterday}>
+                                <Text style={styles.clickableText}>Yesterday</Text>
+                            </TouchableOpacity>
                         </View>
 
                         <DateTimePickerModal
@@ -174,6 +180,8 @@ export default function AddClimbScreen({ navigation, route }) {
                             onCancel={hideDatePicker}
                         />
 
+                        <View style={{borderColor: 'lightgray', borderBottomWidth: 1, marginHorizontal: 20}}/>
+
                         {/* weather row */}
                         <View style={styles.row}>
                             <View style={styles.titleColumn}>
@@ -181,29 +189,24 @@ export default function AddClimbScreen({ navigation, route }) {
                                     Weather:
                                 </Text>
                             </View>
+                            {/* TODO Fix width of picker */}
                             <View style={styles.inputColumn}>
-                                <Picker
-                                    selectedValue={weather}
-                                    style={{ height: 50, width: 240 }}
-                                    mode={"dialog"}
-                                    onValueChange={(itemValue) => setWeather(itemValue)}
-                                >
-                                    <Picker.Item label="Sunny" value="sunny" />
-                                    <Picker.Item label="Raining" value="raining" />
-                                    <Picker.Item label="Overcast" value="overcast" />
-                                    <Picker.Item label="Snowing" value="snowing" />
-                                </Picker>
-                                {/* <TextInput
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                clearButtonMode="always"
-                                value={weather}
-                                onChangeText={queryText => setWeather(queryText)}
-                                placeholder="Select Weather"
-                                style={styles.searchBoxInput}
-                            /> */}
+                                    <Picker
+                                        selectedValue={weather}
+                                        style={{ height: 5, width: 180, color: '#3ECEB1', marginLeft: -16,}}
+                                        mode={"dialog"}
+                                        onValueChange={(itemValue) => setWeather(itemValue)}
+                                    >
+                                        <Picker.Item label="Sunny" value="sunny" />
+                                        <Picker.Item label="Raining" value="raining" />
+                                        <Picker.Item label="Overcast" value="overcast" />
+                                        <Picker.Item label="Snowing" value="snowing" />
+                                    </Picker>
                             </View>
                         </View>
+
+                        <View style={{borderColor: 'lightgray', borderBottomWidth: 1, marginHorizontal: 20}}/>
+
                         {/* distance row */}
                         <View style={styles.row}>
                             <View style={styles.titleColumn}>
@@ -213,28 +216,24 @@ export default function AddClimbScreen({ navigation, route }) {
                             </View>
                             <View style={styles.inputColumn}>
                                 <TextInput
-
                                     keyboardType='numeric'
                                     autoCapitalize="none"
                                     autoCorrect={false}
                                     clearButtonMode="always"
                                     value={distance.toString()}
                                     onChangeText={queryText => setDistance(parseInt(queryText))}
-                                    placeholder="Insert Distance Walked"
+                                    placeholder="distance"
                                     style={styles.searchBoxInputDistance}
                                 />
+                                <TouchableOpacity onPress={changeUnits}
+                                style={{marginHorizontal:5, paddingHorizontal:5, }}>
+                                    <Text style={styles.clickableText}>{unitKm}</Text>
+                                </TouchableOpacity>
                             </View>
-                            <SelectList
-                                setSelected={(val) => setUnitKm(val)}
-                                placeholder={unitKm}
-                                data={data}
-                                save="value"
-                                boxStyles={{ borderWidth: 0, padding: 0, marginTop: -8, width: 80 }}
-                                inputStyles={{ margin: 0 }}
-                                dropdownStyles={{ borderWidth: 0, backgroundColor: '#F5F5F5' }}
-                                dropDownDirection="TOP"
-                            />
                         </View>
+
+                        <View style={{borderColor: 'lightgray', borderBottomWidth: 1, marginHorizontal: 20}}/>
+
                         {/* time row */}
                         <View style={styles.row}>
                             <View style={styles.titleColumn}>
@@ -244,7 +243,7 @@ export default function AddClimbScreen({ navigation, route }) {
                             </View>
                             <View style={styles.inputColumn}>
                                 <TouchableOpacity onPress={showTimePicker}>
-                                    <Text>{time}</Text>
+                                    <Text style={{color: '#3ECEB1'}}>{time}</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -268,6 +267,9 @@ export default function AddClimbScreen({ navigation, route }) {
                                 overlayOpacity: 0.2,
                             }}
                         />
+
+                        <View style={{borderColor: 'lightgray', borderBottomWidth: 1, marginHorizontal: 20}}/>
+
                         {/* friends row */}
                         <View style={styles.row}>
                             <View style={styles.titleColumn}>
@@ -283,7 +285,7 @@ export default function AddClimbScreen({ navigation, route }) {
                                     value={friend}
                                     onChangeText={queryText => setFriend(queryText)}
                                     placeholder="Insert friends"
-                                    style={styles.searchBoxInput}
+                                    style={styles.searchBoxInputDistance}
                                 />
                             </View>
                         </View>
@@ -304,8 +306,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F5F5F5',
-
-        justifyContent: 'center',
     },
     tital: {
         fontSize: 25,
@@ -348,16 +348,25 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
     row: {
+        flex: 1,
+        alignItems: 'center',
         flexDirection: "row",
         margin: 15,
+
+    },
+    dateRow: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        marginBottom : 15,
+        paddingLeft: 60
     },
     titleColumn: {
-        // backgroundColor: "red",
-        flex: 1
+        flex: 1,
     },
     inputColumn: {
         // backgroundColor: "blue",
-        flex: 2
+        flexDirection: 'row',
+        flex: 1.5, 
     },
     text: {
         fontSize: 16,
@@ -367,7 +376,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20
     },
     searchBoxInputDistance: {
+        flex: 1,
         backgroundColor: '#F5F5F5',
+        borderColor: '#3ECEB1',
+        borderWidth: 1,
+        borderRadius: 5,
+        alignSelf: "center",
         paddingHorizontal: 20
     },
     picker: {
@@ -377,6 +391,9 @@ const styles = StyleSheet.create({
     },
     button: {
 
+    },
+    clickableText: {
+        color: '#3ECEB1'
     }
 });
 

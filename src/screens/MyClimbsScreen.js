@@ -38,6 +38,10 @@ export default function MyClimbsScreen({ navigation, route }) {
         handleDeleteModal(false, null)
     }
 
+    const deleteAllClimbs = () => {
+        Database.removeAllClimbs()
+    }
+
     // data = Database.getAllClimbs()
     //     return await data.then(
     //         (climbsData) => {
