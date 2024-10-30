@@ -79,7 +79,6 @@ export default function AddClimbScreen({ navigation, route }) {
         if(unitKm == "mi"){
             setUnitKm("Km")
         }
-        console.log(unitKm)
     }
 
     // const data = [
@@ -91,6 +90,8 @@ export default function AddClimbScreen({ navigation, route }) {
     AddClimb = () => {
         let _month = selectedDate.getMonth() +1
         let _date =  selectedDate.getDate() + "/" + _month + "/" + selectedDate.getFullYear();
+
+        console.log(distance)
         console.log(selectedDate)
         Database.addNewClimb(munroNumber, _date, weather, distance, time, friend, unitKm)
 

@@ -7,6 +7,21 @@ import DetailsRow from "./DetailsRow";
 
 const CarouselCard = ({ item, index, navigation, munro }) =>{
     
+    let assentNum = index + 1
+    switch (assentNum) {
+        case 1:
+            assentNum = '1st'
+            break;
+        case 2:
+            assentNum = '2nd'
+            break;
+        case 3:
+            assentNum = '3rd'
+            break;
+        default:
+            assentNum = (assentNum + 'th')
+    }
+    
     if (item.AddClimb == "true")
     {
         //TODO TouchableOpacity need to fill space, removed fixed pixel size
@@ -44,14 +59,14 @@ const CarouselCard = ({ item, index, navigation, munro }) =>{
     return(
         <DetailsBox cardStyle={styles.customCard}>
             <View style={styles.column}>
-                <DetailsRow IconName={'hashtag'} data={index + 1} size={15} />
+                <DetailsRow IconName={'hashtag'} data={assentNum + " assent"} size={15} />
                 <Spacer size={2} />
-                <DetailsRow IconName={'time'} data={item.time} size={15} />
+                <DetailsRow IconName={'time'} data={"  " + item.time + " h"} size={15} />
             </View>
             <View style={styles.column}>
                 <DetailsRow IconName={'calendar'} data={item.date} size={15} />
                 <Spacer size={2} />
-                <DetailsRow IconName={'distance'} data={item.distance} size={15} />
+                <DetailsRow IconName={'distance'} data={item.distance + " Km"} size={15} />
 
             </View>
         </DetailsBox>

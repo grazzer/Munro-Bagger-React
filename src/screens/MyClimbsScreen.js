@@ -206,16 +206,16 @@ function CarouselCard({climb, index, changeState}){
             </View>
             <View style={styles.carouselCardRow}>
                 <View style={styles.carouselCardCol}>
-                    <Details IconName="distance" data={climb.distance}/>
+                    <Details IconName="distance" data={climb.distance + "  Km"}/>
                 </View>
                 <View style={styles.carouselCardCol}>
-                    <Details IconName="time" data={' ' + climb.time}/>
+                    <Details IconName="time" data={' ' + climb.time + "  h"}/>
                 </View>
                 <View style={styles.carouselCardCol}>
                     <Details IconName="weather" data={climb.weather}/>
                 </View>
             </View>
-            <Details IconName="freinds" data={climb.freind}/>
+            <Details IconName="freinds" data={climb.friends}/>
         </View>
     )    
 }

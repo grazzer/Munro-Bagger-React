@@ -13,9 +13,9 @@ const DetailsAbout = ({ munro }) => {
                     <Row leftText={'Classification:'} rightText={munro.Classification}/>
                     <Row leftText={'County top:'} rightText={munro.Feature}/>
                     <Spacer size={20}/>
-                    <Row leftText={'Parent SMC:'} rightText={munro.Parent_name_SMC}/>
+                    {/* <Row leftText={'Parent SMC:'} rightText={munro.Parent_name_SMC}/>
                     <Row leftText={'Parent Ma:'} rightText={munro.Parent_name_Ma}/>
-                    <Spacer size={20}/>
+                    <Spacer size={20}/> */}
                     <Row leftText={'Summit feature:'} rightText={munro.Feature}/>
                     <Row leftText={'Observations:'} rightText={munro.Observations}/>
                     <Spacer size={20}/>
