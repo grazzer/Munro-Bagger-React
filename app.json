@@ -23,6 +23,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "graham.expo.munrobagger",
+      "versionCode": 1,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyDc9N4HydD69tMJ-iSe1m2vlKSlAJC3QZY"
