@@ -103,6 +103,9 @@ const ClimbedCard = (props) => {
     const _hillData = hillData[0]
     const [activeIndex, setActiveIndex] = useState(0);
 
+    const { width } = Dimensions.get('window');
+    let _width = width - 94
+
 
     function render(data){
         // return(<Text>{data.index}</Text>);
@@ -127,14 +130,13 @@ const ClimbedCard = (props) => {
                         />
                         <Spacer size={15} />
                         <Carousel
-
                             layout={"default"}
                             ref={ref => this.carousel = ref}
                             data={array}
                             renderItem={render}
                             // TODO FIX WIDTH
-                            sliderWidth={300}
-                            itemWidth={300}
+                            sliderWidth={_width}
+                            itemWidth={_width}
                             enableSnap={true} 
                             onSnapToItem={(slideIndex) => setActiveIndex(slideIndex)}
                         />
@@ -221,71 +223,6 @@ function CarouselCard({climb, index, changeState}){
 }
 
 
-// function ShowClimb({ climb, assent }) {
-//     const [show, setShow] = useState(false);
-//     let assentNum = assent + 1
-//     switch (assentNum) {
-//         case 1:
-//             assentNum = '1st'
-//             break;
-//         case 2:
-//             assentNum = '2nd'
-//             break;
-//         case 3:
-//             assentNum = '3rd'
-//             break;
-//         default:
-//             assentNum = (assentNum + 'th')
-//     }
-
-//     if (show) {
-//         return (
-//             <View>
-//                 <TouchableWithoutFeedback onPress={() => setShow(false)}>
-//                     <View>
-//                         <Details IconName="hashtag" data={assentNum + ' assent'} />
-//                         <Spacer size={5} />
-//                         <View
-//                             style={{
-//                                 borderBottomColor: 'black',
-//                                 borderBottomWidth: StyleSheet.hairlineWidth,
-//                             }}
-//                         />
-//                         <Spacer size={5} />
-//                     </View>
-//                 </TouchableWithoutFeedback>
-//                 <Details IconName="calendar" data={climb.date} />
-//                 <Details IconName="distance" data={climb.distance} />
-//                 <Details IconName="time" data={' ' + climb.time} />
-//                 <Details IconName="weather" data={climb.weather} />
-//                 <Details IconName="freinds" data={climb.freind} />
-//                 <View style={styles.munroCardBag}>
-//                     <Icon name='backpack' size={22} />
-//                 </View>
-//                 <Spacer size={10} />
-//             </View>
-//         )
-
-//     }
-//     else {
-//         return (
-//             <TouchableWithoutFeedback onPress={() => setShow(true)}>
-//                 <View>
-//                     <Details IconName="hashtag" data={assentNum + ' assent'} />
-//                     <Spacer size={5} />
-//                     <View
-//                         style={{
-//                             borderBottomColor: 'black',
-//                             borderBottomWidth: StyleSheet.hairlineWidth,
-//                         }}
-//                     />
-//                     <Spacer size={5} />
-//                 </View>
-//             </TouchableWithoutFeedback >
-//         )
-//     }
-// }
-
 function Details({ IconName, data }) {
     return (
         <View style={styles.InfoRow}>
@@ -326,7 +263,7 @@ const styles = StyleSheet.create({
     },
     munroCardDetails: {
         flex: 6,
-        paddingLeft: 15,
+        paddingHorizontal: 15,
     },
     munroCardImage: {
         aspectRatio: 1 / 1,
@@ -361,12 +298,14 @@ const styles = StyleSheet.create({
     },
     carouselCard: {
         flex: 1,
+        padding: 5,
 
     },
     carouselCardRow: {
         flex: 1,
         flexDirection: 'row',
-        marginBottom: 5
+        marginBottom: 5,
+
     },
     carouselCardCol: {
         flex: 1,
