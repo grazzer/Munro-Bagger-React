@@ -104,10 +104,10 @@ export default function App() {
                 let iconName;
 
                 switch (route.name) {
-                  case "Hill Finder":
+                  case "HillFinder":
                     iconName = "mountain"
                     break;
-                  case "My Climbs":
+                  case "MyClimbs":
                       iconName = "backpack"
                       break;
                 }
@@ -128,8 +128,8 @@ export default function App() {
               headerShown: false
             })}>
               {/* <Tab.Screen name="HillFinder" component={HillFinderLS} initialParams={{ munroData, munro }} /> */}
-              <Tab.Screen name="Hill Finder" component={HillFinderLS} />
-              <Tab.Screen name="My Climbs" component={MyClimbsLS} />
+              <Tab.Screen name="HillFinder" component={HillFinderLS} />
+              <Tab.Screen name="MyClimbs" component={MyClimbsLS} />
             </Tab.Navigator>
           </NavigationContainer>
       </Provider>

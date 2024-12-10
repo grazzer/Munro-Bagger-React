@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList, RefreshControl, ActivityIndicator, TextInput } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useIsFocused, useFocusEffect } from '@react-navigation/native';
 import ListScreen from '../screens/ListScreen';

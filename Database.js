@@ -1,9 +1,10 @@
-import * as SQLite from "expo-sqlite";
-import { parse } from "react-native-svg";
+import * as SQLite from "expo-sqlite/legacy";
+// import { parse } from "react-native-svg";
 
 class Database {
 
-    db = SQLite.openDatabase('db.testDb');
+    db = SQLite.openDatabase('db.Munro');
+    
 
     createDatabase = () => {
         this.db.transaction((tx) => {

@@ -134,7 +134,6 @@ const ClimbedCard = (props) => {
                             ref={ref => this.carousel = ref}
                             data={array}
                             renderItem={render}
-                            // TODO FIX WIDTH
                             sliderWidth={_width}
                             itemWidth={_width}
                             enableSnap={true} 
@@ -196,7 +195,7 @@ function CarouselCard({climb, index, changeState}){
                     <TouchableOpacity
                                 onPress={() => popup()}
                             >
-                        <Icon name="backpack" size={18} color='#3ECEB1' style={styles.carouselCardColBin}/>
+                        <Icon name="bin" size={18} color='#3ECEB1' style={styles.carouselCardColBin}/>
                     </TouchableOpacity>
                 </View>
             </View>

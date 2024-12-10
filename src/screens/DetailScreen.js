@@ -77,7 +77,7 @@ export default function DetailScreen({ navigation, route }) {
 
 
     return (
-        <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
+        // <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
             <View style={styles.container}>
                 <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
                     <View style={styles.imageContainer}>
@@ -112,7 +112,7 @@ export default function DetailScreen({ navigation, route }) {
                             <Icon name='back' size={40} color='#3ECEB1' style={styles.icon} />
                 </TouchableOpacity>
             </View >
-        </SafeAreaView>
+        // </SafeAreaView>
     )
 }
 

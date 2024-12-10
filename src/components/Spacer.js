@@ -17,16 +17,16 @@ const Spacer = ({ horizontal, size }) => {
     );
 };
 
-Spacer.propTypes = {
-    size: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string
-    ]).isRequired,
-    horizontal: PropTypes.bool,
-};
+// Spacer.propTypes = {
+//     size: PropTypes.oneOfType([
+//         PropTypes.number,
+//         PropTypes.string
+//     ]).isRequired,
+//     horizontal: PropTypes.bool,
+// };
 
-Spacer.defaultProps = {
-    horizontal: false,
-};
+// Spacer.defaultProps = {
+//     horizontal: false,
+// };
 
 export default Spacer;
