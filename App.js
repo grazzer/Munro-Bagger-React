@@ -9,56 +9,16 @@ import { Provider } from "react-redux";
 
 import HillFinderLS from './src/loadingScreens/HillFinderLS';
 import MyClimbsLS from './src/loadingScreens/MyClimbsLS';
+import DataLS from './src/loadingScreens/DataLS.js';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createIconSetFromIcoMoon } from '@expo/vector-icons';
 
-const Icon = createIconSetFromIcoMoon(
-    require('./assets/icomoon/selection.json'),
-    'IcoMoon',
-    'icomoon.ttf'
-);
-
-const Tab = createBottomTabNavigator();
-
-// // API path
-// const hillBaggerPath = "https://hill-bagging-api.onrender.com";
-// const munroQuery = "/munros";
-// const munroBaggerPath = `${hillBaggerPath}${munroQuery}`;
 
 export default function App() {
 
-  // is
   Database.createDatabase()
-
-  // // API constants 
-  // const [munroData, setMunroData] = useState([]);
-  // const [Loading, setloading] = useState(false);
-  // const [error, setError] = useState(null);
-  // // reload API
-  // const [reloadMunroData, setReloadMunroData] = useState(false);
-  // const toggleSwitch = () => setReloadMunroData(previousState => !previousState);
-
-  // // get API data
-  // useEffect(() => {
-  //   const fetchMunros = async () => {
-  //     console.log("fetching Munro's");
-  //     const munroResults = await fetch(munroBaggerPath)
-  //     const munros = await munroResults.json();
-  //     setMunroData(munros)
-  //     setloading(false)
-  //   }
-  //   try {
-  //     setloading(true)
-  //     fetchMunros();
-  //   }
-  //   catch (error) {
-  //     setloading(false)
-  //     setError(error)
-  //   }
-  // }, [reloadMunroData])
-
-
+ 
   // load font 
   const [fontsLoaded] = useFonts({
     IcoMoon: require('./assets/icomoon/icomoon.ttf'),
@@ -90,49 +50,10 @@ export default function App() {
     return (<Text>No Font</Text>);
   }
 
-  // const munro = munroData[0]
-  // if (munroData) {
-  return (
+  return(
     <Provider store={store}>
-          <NavigationContainer>
-            <Tab.Navigator
-            initialRouteName = "HillFinder"
-            screenOptions = {({route}) =>
-            ({
-              tabBarIcon: ({color, size, focused}) =>
-              {
-                let iconName;
-
-                switch (route.name) {
-                  case "HillFinder":
-                    iconName = "mountain"
-                    break;
-                  case "MyClimbs":
-                      iconName = "backpack"
-                      break;
-                }
-                return <Icon name={iconName} size={size} color={color}/>
-              },
-              tabBarLabel: ({children, color, focused}) => 
-              (
-                <Text style={{
-                  fontSize: 10,
-                  color,
-                  fontWeight: focused? "bold" : "normal" 
-                }}>
-                  {children}
-                </Text>
-              ),
-              tabBarActiveTintColor: '#3ECEB1',
-              tabBarInactiveTintColor: 'lightgray',
-              headerShown: false
-            })}>
-              {/* <Tab.Screen name="HillFinder" component={HillFinderLS} initialParams={{ munroData, munro }} /> */}
-              <Tab.Screen name="HillFinder" component={HillFinderLS} />
-              <Tab.Screen name="MyClimbs" component={MyClimbsLS} />
-            </Tab.Navigator>
-          </NavigationContainer>
-      </Provider>
+      <DataLS/> 
+    </Provider>
   );
 }
 

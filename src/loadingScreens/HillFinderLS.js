@@ -15,36 +15,36 @@ const Stack = createNativeStackNavigator();
 
 export default function HillFinderLS() {
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch(getMunroAsync());
-      dispatch(getListAsync());
-      },[])
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //   dispatch(getMunroAsync());
+    //   dispatch(getListAsync());
+    //   },[])
 
     const muroList = useSelector(state => state.munroList);
 
     const munroData = muroList
     const munro = munroData[0]
 
-  if (muroList.status == "pending") {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size='large' color='#3ECEB1' />
-        <Text fontcolor='#3ECEB1'>LOADING YOUR MUNRO DATA</Text>
-      </View>
-    );
-  }
+  // if (muroList.status == "pending") {
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+  //       <ActivityIndicator size='large' color='#3ECEB1' />
+  //       <Text fontcolor='#3ECEB1'>LOADING YOUR MUNRO DATA</Text>
+  //     </View>
+  //   );
+  // }
 
-  if (muroList.status == "rejected") {
-      console.log("error")
-      return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ fontSize: 18 }}>
-            {error}
-          </Text>
-        </View>
-      );
-  }
+  // if (muroList.status == "rejected") {
+  //     console.log("error")
+  //     return (
+  //       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+  //         <Text style={{ fontSize: 18 }}>
+  //           {error}
+  //         </Text>
+  //       </View>
+  //     );
+  // }
 
   return (
     <Stack.Navigator 
