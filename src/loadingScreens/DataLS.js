@@ -31,7 +31,7 @@ export default function HillFinderLS() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size='large' color='#3ECEB1' />
-        <Text fontcolor='#3ECEB1'>LOADING YOUR MUNRO DATA</Text>
+        <Text fontcolor='#3ECEB1'>Please Wait ... Loading Munro Data</Text>
       </View>
     );
   }

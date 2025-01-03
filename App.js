@@ -6,6 +6,7 @@ import { useFonts } from 'expo-font';
 import Database from './Database'
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
+import { StatusBar } from 'expo-status-bar';
 
 import HillFinderLS from './src/loadingScreens/HillFinderLS';
 import MyClimbsLS from './src/loadingScreens/MyClimbsLS';
@@ -45,13 +46,14 @@ export default function App() {
   //   );
   // }
 
-  if (!fontsLoaded) {
-    console.log("no Font")
-    return (<Text>No Font</Text>);
-  }
+  // if (!fontsLoaded) {
+  //   console.log("no Font")
+  //   return (<Text>No Font</Text>);
+  // }
 
   return(
     <Provider store={store}>
+      <StatusBar style="dark" />
       <DataLS/> 
     </Provider>
   );
