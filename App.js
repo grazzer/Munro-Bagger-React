@@ -46,10 +46,10 @@ export default function App() {
   //   );
   // }
 
-  // if (!fontsLoaded) {
-  //   console.log("no Font")
-  //   return (<Text>No Font</Text>);
-  // }
+  if (!fontsLoaded) {
+    // console.log("no Font")
+    // return (<Text>No Font</Text>);
+  }
 
   return(
     <Provider store={store}>
