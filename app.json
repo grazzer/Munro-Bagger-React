@@ -1,8 +1,7 @@
 {
   "expo": {
-    "name": "Munro-Bagger-React",
+    "name": "Munro Baggers",
     "slug": "Munro-Bagger-React",
-    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -22,8 +21,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "graham.expo.munrobagger",
-      "versionCode": 1,
+      "package": "layback.dev.munrobaggers",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyDc9N4HydD69tMJ-iSe1m2vlKSlAJC3QZY"
