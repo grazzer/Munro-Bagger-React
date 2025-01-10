@@ -47,6 +47,7 @@ export default function App() {
   // }
 
   if (!fontsLoaded) {
+    return null;
     // console.log("no Font")
     // return (<Text>No Font</Text>);
   }

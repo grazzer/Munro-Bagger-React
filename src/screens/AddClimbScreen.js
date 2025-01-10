@@ -96,8 +96,9 @@ export default function AddClimbScreen({ navigation, route }) {
         Database.addNewClimb(munroNumber, _date, weather, distance, time, friend, unitKm)
 
         dispatch(getListAsync());
-        
-        navigation.navigate('DetailScreen', { munro })
+
+        navigation.pop();
+        // navigation.navigate('DetailScreen', { munro })
     }
 
     return (
