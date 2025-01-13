@@ -1,4 +1,4 @@
-<div width="100%">
+<div align="center">
   <a href="url"><img src="https://github.com/user-attachments/assets/5f401b78-7549-41a2-8600-50b1a1239dfa" align="left" width="25%" ></a>
   <a href="url"><img src="https://github.com/user-attachments/assets/3b543508-b49a-45f6-b096-10f67a8b02e7" align="left" width="25%" ></a>
   <a href="url"><img src="https://github.com/user-attachments/assets/e957e96b-ebf2-472b-ad3b-a9adb3cb1e7e" align="left" width="25%" ></a>
