@@ -23,7 +23,7 @@ export default function AddClimbScreen({ navigation, route }) {
     const [munroName, setMunroName] = useState("")
     const [date, setDate] = useState("")
     const [weather, setWeather] = useState("")
-    const [distance, setDistance] = useState("")
+    const [distance, setDistance] = useState("0")
     const [unitKm, setUnitKm] = useState("Km")
     const [time, setTime] = useState("0:0")
     const [friend, setFriend] = useState("")
@@ -87,9 +87,19 @@ export default function AddClimbScreen({ navigation, route }) {
 
     // ]
 
+    setDist = (queryText) => {
+        if (queryText.length>0){
+            setDistance(parseInt(queryText))
+        }
+        else {
+            setDistance(0)
+        }
+    }
+
     AddClimb = () => {
         let _month = selectedDate.getMonth() +1
         let _date =  selectedDate.getDate() + "/" + _month + "/" + selectedDate.getFullYear();
+
 
         console.log(distance)
         console.log(selectedDate)
@@ -223,7 +233,7 @@ export default function AddClimbScreen({ navigation, route }) {
                                     autoCorrect={false}
                                     clearButtonMode="always"
                                     value={distance.toString()}
-                                    onChangeText={queryText => setDistance(parseInt(queryText))}
+                                    onChangeText={queryText => setDist(queryText)}
                                     placeholder="distance"
                                     style={styles.searchBoxInputDistance}
                                 />
